@@ -1,60 +1,117 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import creedAventus from '../assets/perfume/creed-aventus.webp'
+import { useEffect, useRef } from 'react'
+import heroApparel from '../assets/apparel/vieriche-set-black-white.webp'
 import { WA_MESSAGES } from '../data/brand'
+import { loadGsap, type GsapContext } from '../lib/gsapLoader'
 import { GoldStar } from './ui/GoldStar'
 import { WhatsAppButton } from './ui/WhatsAppButton'
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion()
+  const sectionRef = useRef<HTMLElement>(null)
+  const imageWrapRef = useRef<HTMLDivElement>(null)
+  const imageRef = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    if (shouldReduceMotion || !sectionRef.current) return
+
+    let cancelled = false
+    let ctx: GsapContext | undefined
+
+    loadGsap().then(({ gsap }) => {
+      if (cancelled || !sectionRef.current) return
+      ctx = gsap.context(() => {
+        gsap.to(imageRef.current, {
+          yPercent: 12,
+          scale: 1.12,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        })
+        gsap.to(imageWrapRef.current, {
+          opacity: 0.15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        })
+      }, sectionRef)
+    })
+
+    return () => {
+      cancelled = true
+      ctx?.revert()
+    }
+  }, [shouldReduceMotion])
 
   return (
-    <section id="inicio" className="relative flex min-h-[100svh] items-center overflow-hidden bg-ink pt-24">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-40 top-0 h-[36rem] w-[36rem] rounded-full bg-champagne/[0.05] blur-3xl" />
-        <div className="absolute right-0 bottom-0 h-[28rem] w-[28rem] rounded-full bg-champagne/[0.04] blur-3xl" />
+    <section id="inicio" ref={sectionRef} className="relative h-[100svh] min-h-[640px] overflow-hidden bg-ink">
+      <div
+        ref={imageWrapRef}
+        className="absolute inset-y-0 right-0 w-[86%] sm:w-[72%] lg:w-[62%]"
+      >
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            ref={imageRef}
+            src={heroApparel}
+            alt="Meghan Luxury — selección de moda Vie-Riche"
+            fetchPriority="high"
+            decoding="async"
+            className="h-full w-full scale-110 object-cover object-top"
+          />
+        </div>
+        <div className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-ink via-ink/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-ink to-transparent" />
       </div>
 
-      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-10">
-        <div className="order-2 lg:order-1">
-          <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.9, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center gap-3 text-champagne"
-          >
-            <GoldStar className="h-3.5 w-3.5" />
-            <span className="text-[11px] tracking-label uppercase">Santa Marta · Magdalena</span>
-          </motion.div>
+      <div className="relative z-10 mx-auto flex h-full max-w-[90rem] flex-col justify-between px-5 pb-10 pt-28 sm:px-8 sm:pt-32 lg:pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="flex items-center gap-3 text-champagne"
+        >
+          <GoldStar className="h-3.5 w-3.5" />
+          <span className="text-[11px] tracking-label uppercase">Santa Marta · Magdalena</span>
+          <span className="h-3 w-px bg-champagne-dim/50" />
+          <span className="font-display-number text-sm text-champagne">N.º 01</span>
+        </motion.div>
 
+        <div className="max-w-2xl">
           <motion.h1
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 26 }}
+            initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.05, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 text-[13vw] leading-[0.95] tracking-wordmark text-ivory sm:text-6xl lg:text-7xl xl:text-8xl"
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="text-[16vw] leading-[0.88] tracking-wordmark text-ivory sm:text-7xl md:text-8xl lg:text-[8.5rem]"
           >
             MEGHAN
-            <br />
-            <span className="text-champagne">LUXURY</span>
           </motion.h1>
-
           <motion.p
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.25, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-7 max-w-md text-lg text-ivory-dim text-balance"
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+            className="mt-5 max-w-md text-base text-ivory-dim sm:text-lg text-balance"
           >
             El lujo comienza con una elección. Moda, perfumería y accesorios cuidadosamente
             seleccionados.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-10 flex flex-wrap items-center gap-4"
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
+            className="mt-9 flex flex-wrap items-center gap-4"
           >
             <a
-              href="#colecciones"
+              href="#mundos"
+              data-cursor="VER"
               className="inline-flex items-center justify-center rounded-full border border-ivory/25 px-7 py-3.5 text-xs tracking-label uppercase text-ivory transition-all duration-300 hover:border-champagne hover:text-champagne-bright"
             >
               Explorar selección
@@ -63,46 +120,18 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 2.0, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="order-1 lg:order-2 mx-auto w-full max-w-sm lg:max-w-none"
+        <motion.a
+          href="#manifiesto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.1, duration: 0.8 }}
+          className="hidden items-center gap-3 self-start text-ivory-dim/70 sm:flex"
+          aria-label="Descubrir más"
         >
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm border border-champagne-dim/25 bg-graphite">
-            <img
-              src={creedAventus}
-              alt="Alta perfumería — Creed Aventus, parte de la selección Meghan Luxury"
-              className="h-full w-full object-cover"
-              style={
-                shouldReduceMotion
-                  ? undefined
-                  : { animation: 'meghan-hero-drift 9s ease-in-out infinite alternate' }
-              }
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
-            <div className="absolute left-5 top-5 h-10 w-px bg-champagne/50" />
-            <div className="absolute left-5 top-5 h-px w-10 bg-champagne/50" />
-            <div className="absolute right-5 bottom-5 h-10 w-px bg-champagne/50" />
-            <div className="absolute right-5 bottom-5 h-px w-10 bg-champagne/50" />
-          </div>
-          <p className="mt-4 text-center text-[11px] tracking-label uppercase text-ivory-dim/70">
-            Alta perfumería · Selección exclusiva
-          </p>
-        </motion.div>
+          <span className="h-10 w-px bg-gradient-to-b from-champagne to-transparent" />
+          <span className="text-[10px] tracking-label uppercase">Descubrir</span>
+        </motion.a>
       </div>
-
-      <motion.a
-        href="#identidad"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.8, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-ivory-dim/70 sm:flex"
-        aria-label="Descubrir más"
-      >
-        <span className="text-[10px] tracking-label uppercase">Descubrir</span>
-        <span className="h-10 w-px bg-gradient-to-b from-champagne to-transparent" />
-      </motion.a>
     </section>
   )
 }

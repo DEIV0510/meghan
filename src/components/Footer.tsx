@@ -4,9 +4,9 @@ import { GoldStar } from './ui/GoldStar'
 
 const LINKS = [
   { href: '#inicio', label: 'Inicio' },
-  { href: '#colecciones', label: 'Colecciones' },
+  { href: '#mundos', label: 'Colecciones' },
   { href: '#perfumeria', label: 'Perfumería' },
-  { href: '#accesorios', label: 'Accesorios' },
+  { href: '#moda', label: 'Moda' },
   { href: '#showroom', label: 'Showroom' },
   { href: '#contacto', label: 'Contacto' },
 ]

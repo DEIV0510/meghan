@@ -7,19 +7,24 @@ import { WhatsAppButton } from './ui/WhatsAppButton'
 
 const LINKS = [
   { href: '#inicio', label: 'Inicio' },
-  { href: '#colecciones', label: 'Colecciones' },
+  { href: '#mundos', label: 'Colecciones' },
   { href: '#perfumeria', label: 'Perfumería' },
-  { href: '#accesorios', label: 'Accesorios' },
+  { href: '#moda', label: 'Moda' },
   { href: '#showroom', label: 'Showroom' },
   { href: '#contacto', label: 'Contacto' },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [progress, setProgress] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24)
+      const max = document.documentElement.scrollHeight - window.innerHeight
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0)
+    }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -35,12 +40,16 @@ export function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-ink/85 backdrop-blur-md border-b border-champagne-dim/15' : 'bg-transparent'
+        scrolled ? 'bg-ink/85 backdrop-blur-md' : 'bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8 py-4">
+      <div className="h-px w-full bg-champagne-dim/10">
+        <div className="h-full bg-champagne transition-[width] duration-150 ease-out" style={{ width: `${progress * 100}%` }} />
+      </div>
+
+      <nav className="mx-auto flex max-w-[90rem] items-center justify-between px-5 py-4 sm:px-8 sm:py-5">
         <a href="#inicio" className="flex items-center gap-2 shrink-0">
-          <img src={logo} alt="Meghan Luxury" className="h-7 sm:h-8 w-auto" />
+          <img src={logo} alt="Meghan Luxury" className="h-8 w-auto sm:h-9" />
         </a>
 
         <ul className="hidden lg:flex items-center gap-9">
@@ -48,6 +57,7 @@ export function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
+                data-cursor="VER"
                 className="text-[11px] tracking-label uppercase text-ivory/80 hover:text-champagne-bright transition-colors duration-300"
               >
                 {link.label}
@@ -84,7 +94,7 @@ export function Navbar() {
             transition={{ duration: 0.35 }}
           >
             <div className="flex items-center justify-between px-5 py-4">
-              <img src={logo} alt="Meghan Luxury" className="h-7 w-auto" />
+              <img src={logo} alt="Meghan Luxury" className="h-8 w-auto" />
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}

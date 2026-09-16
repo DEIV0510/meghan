@@ -1,36 +1,43 @@
-import { BrandIdentity } from './components/BrandIdentity'
-import { Categories } from './components/Categories'
-import { FashionAccessories } from './components/FashionAccessories'
+import { CalzadoEditorial } from './components/CalzadoEditorial'
+import { CustomCursor } from './components/CustomCursor'
+import { EditorialGallery } from './components/EditorialGallery'
 import { FinalCTA } from './components/FinalCTA'
 import { Footer } from './components/Footer'
+import { FourWorlds } from './components/FourWorlds'
 import { Hero } from './components/Hero'
 import { InstagramSection } from './components/InstagramSection'
+import { LentesEditorial } from './components/LentesEditorial'
 import { Loader } from './components/Loader'
+import { Manifesto } from './components/Manifesto'
+import { ModaEditorial } from './components/ModaEditorial'
 import { Navbar } from './components/Navbar'
-import { PerfumerySensorial } from './components/PerfumerySensorial'
-import { ProductGallery } from './components/ProductGallery'
+import { PerfumeryImmersive } from './components/PerfumeryImmersive'
 import { Showroom } from './components/Showroom'
 import { WhatsAppFloat } from './components/WhatsAppFloat'
+import { SmoothScroll } from './lib/smoothScroll'
 
 function App() {
   return (
-    <>
+    <SmoothScroll>
       <Loader />
+      <CustomCursor />
       <Navbar />
       <main>
         <Hero />
-        <BrandIdentity />
-        <Categories />
-        <ProductGallery />
-        <PerfumerySensorial />
-        <FashionAccessories />
+        <Manifesto />
+        <FourWorlds />
+        <PerfumeryImmersive />
+        <ModaEditorial />
+        <LentesEditorial />
+        <CalzadoEditorial />
+        <EditorialGallery />
         <Showroom />
         <InstagramSection />
         <FinalCTA />
       </main>
       <Footer />
       <WhatsAppFloat />
-    </>
+    </SmoothScroll>
   )
 }
 

@@ -1,61 +1,52 @@
 import renderEntrance from '../assets/showroom/render-05-entrance.webp'
-import renderLogo from '../assets/showroom/render-04-logo.webp'
 import { WA_MESSAGES } from '../data/brand'
 import { Reveal } from './Reveal'
-import { GoldStar } from './ui/GoldStar'
 import { WhatsAppButton } from './ui/WhatsAppButton'
 
 export function Showroom() {
   return (
-    <section id="showroom" className="relative bg-ink py-28 sm:py-36">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-16">
+    <section id="showroom" className="relative min-h-[90vh] overflow-hidden bg-ink">
+      <img
+        src={renderEntrance}
+        alt="Concepto de diseño del showroom Meghan Luxury"
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover opacity-45"
+      />
+      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
+
+      <div className="relative mx-auto flex min-h-[90vh] max-w-[90rem] flex-col justify-center px-5 py-24 sm:px-8">
         <Reveal>
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-sm border border-champagne-dim/20">
-            <img
-              src={renderEntrance}
-              alt="Concepto de diseño del showroom Meghan Luxury"
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent p-5">
-              <p className="text-[10px] tracking-label uppercase text-ivory-dim/80">
-                Concepto de diseño del espacio
-              </p>
-            </div>
-          </div>
+          <span className="text-[11px] tracking-label uppercase text-champagne">Una invitación privada</span>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <div className="flex items-center gap-3 text-champagne">
-            <GoldStar className="h-3 w-3" />
-            <span className="text-[11px] tracking-label uppercase">Showroom</span>
-          </div>
-          <h2 className="mt-5 font-serif text-4xl leading-tight text-ivory sm:text-5xl text-balance">
-            Tu próxima elección comienza con una atención personalizada.
+        <Reveal delay={0.08}>
+          <h2 className="mt-5 font-serif text-5xl leading-[0.95] text-ivory sm:text-7xl lg:text-8xl">
+            SANTA MARTA
           </h2>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-ivory-dim">
-            Visítanos en nuestro showroom en Santa Marta, Magdalena, y descubre una selección de
-            moda, perfumería y accesorios de lujo con acompañamiento personalizado en cada
-            consulta.
+        </Reveal>
+        <Reveal delay={0.16}>
+          <p className="mt-2 font-serif text-2xl italic text-champagne-bright sm:text-3xl">
+            Meghan Luxury Showroom
           </p>
+        </Reveal>
 
-          <div className="mt-8 space-y-2 text-sm text-ivory-dim">
-            <p className="font-serif text-lg text-ivory">MEGHAN LUXURY</p>
-            <p>Showroom · Santa Marta, Magdalena, Colombia</p>
-            <p>Atención personalizada</p>
-          </div>
+        <Reveal delay={0.24}>
+          <p className="mt-8 max-w-sm text-sm leading-relaxed text-ivory-dim">
+            Atención personalizada en cada consulta. Visítanos y descubre una selección de moda,
+            perfumería y accesorios de lujo, acompañado por nuestro equipo.
+          </p>
+        </Reveal>
 
-          <div className="mt-9">
-            <WhatsAppButton message={WA_MESSAGES.showroom}>Consultar por WhatsApp</WhatsAppButton>
-          </div>
+        <Reveal delay={0.32}>
+          <p className="mt-3 text-[11px] tracking-label uppercase text-ivory-dim/60">
+            Magdalena, Colombia · Atención personalizada
+          </p>
+        </Reveal>
 
-          <div className="mt-10 aspect-[16/10] w-full max-w-sm overflow-hidden rounded-sm border border-champagne-dim/20 opacity-90">
-            <img
-              src={renderLogo}
-              alt="Concepto de diseño interior del showroom Meghan Luxury"
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
+        <Reveal delay={0.4}>
+          <div className="mt-10">
+            <WhatsAppButton message={WA_MESSAGES.showroom}>Hablar con Meghan</WhatsAppButton>
           </div>
         </Reveal>
       </div>
