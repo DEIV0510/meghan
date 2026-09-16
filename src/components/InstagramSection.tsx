@@ -1,15 +1,15 @@
 import { BRAND } from '../data/brand'
-import { CAPS, GLASSES, PERFUMES, SHOES } from '../data/products'
+import { APPAREL, CAPS, GLASSES, PERFUMES, SHOES } from '../data/products'
 import { Reveal } from './Reveal'
 import { GoldStar } from './ui/GoldStar'
 
 const MOSAIC = [
-  PERFUMES[0],
+  APPAREL[0],
   GLASSES[0],
   CAPS[2],
   SHOES[3],
   PERFUMES[4],
-  CAPS[4],
+  APPAREL[10],
   GLASSES[3],
   SHOES[0],
   PERFUMES[9],

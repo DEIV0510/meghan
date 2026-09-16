@@ -1,4 +1,4 @@
-import capGold from '../assets/caps/dom-gold.webp'
+import setBlackWhite from '../assets/apparel/vieriche-set-black-white.webp'
 import glassesGoldClear from '../assets/glasses/sunglasses-gold-clear.webp'
 import bondTribeca from '../assets/perfume/bond-no9-tribeca.webp'
 import shoeOffwhiteProfile from '../assets/shoes/sneaker-offwhite-profile.webp'
@@ -8,7 +8,7 @@ import { SectionHeading } from './ui/SectionHeading'
 import { WhatsAppButton } from './ui/WhatsAppButton'
 
 const IMAGES: Record<string, string> = {
-  moda: capGold,
+  moda: setBlackWhite,
   perfumeria: bondTribeca,
   lentes: glassesGoldClear,
   calzado: shoeOffwhiteProfile,

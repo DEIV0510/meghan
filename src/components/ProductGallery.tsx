@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import { WA_MESSAGES } from '../data/brand'
-import { CAPS, GLASSES, PERFUMES, SHOES, type Product } from '../data/products'
+import { APPAREL, CAPS, GLASSES, PERFUMES, SHOES, type Product } from '../data/products'
 import { Reveal } from './Reveal'
 import { SectionHeading } from './ui/SectionHeading'
 import { WhatsAppButton } from './ui/WhatsAppButton'
@@ -13,9 +13,11 @@ interface CatalogedProduct extends Product {
 const withCategory = (items: Product[], category: string): CatalogedProduct[] =>
   items.map((p) => ({ ...p, category }))
 
+const MODA = [...CAPS, ...APPAREL]
+
 const ALL_PRODUCTS: CatalogedProduct[] = [
   ...withCategory(PERFUMES, 'Perfumería'),
-  ...withCategory(CAPS, 'Moda'),
+  ...withCategory(MODA, 'Moda'),
   ...withCategory(GLASSES, 'Lentes'),
   ...withCategory(SHOES, 'Calzado'),
 ]
@@ -23,7 +25,7 @@ const ALL_PRODUCTS: CatalogedProduct[] = [
 const TABS = [
   { key: 'todas', label: 'Todas', items: ALL_PRODUCTS, waMessage: WA_MESSAGES.general },
   { key: 'perfumeria', label: 'Alta Perfumería', items: withCategory(PERFUMES, 'Perfumería'), waMessage: WA_MESSAGES.perfumeria },
-  { key: 'moda', label: 'Moda', items: withCategory(CAPS, 'Moda'), waMessage: WA_MESSAGES.moda },
+  { key: 'moda', label: 'Moda', items: withCategory(MODA, 'Moda'), waMessage: WA_MESSAGES.moda },
   { key: 'lentes', label: 'Lentes', items: withCategory(GLASSES, 'Lentes'), waMessage: WA_MESSAGES.lentes },
   { key: 'calzado', label: 'Calzado', items: withCategory(SHOES, 'Calzado'), waMessage: WA_MESSAGES.calzado },
 ] as const

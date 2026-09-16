@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { WA_MESSAGES } from '../data/brand'
-import { CAPS, GLASSES, SHOES } from '../data/products'
+import { APPAREL, CAPS, GLASSES, SHOES } from '../data/products'
 import { Reveal } from './Reveal'
 import { SectionHeading } from './ui/SectionHeading'
 import { WhatsAppButton } from './ui/WhatsAppButton'
@@ -16,7 +16,7 @@ function interleave<T>(...lists: T[][]): T[] {
   return result
 }
 
-const STRIP = interleave(CAPS, GLASSES, SHOES)
+const STRIP = interleave(APPAREL, CAPS, GLASSES, SHOES)
 
 export function FashionAccessories() {
   const scrollerRef = useRef<HTMLDivElement>(null)
@@ -31,7 +31,7 @@ export function FashionAccessories() {
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHeading kicker="Moda &amp; Accesorios" title="Un guardarropa sofisticado, pieza a pieza.">
             <p className="max-w-md text-sm text-ivory-dim">
-              {STRIP.length} piezas entre gorras, lentes y calzado de la colección.
+              {STRIP.length} piezas entre moda, gorras, lentes y calzado de la colección.
             </p>
           </SectionHeading>
           <div className="hidden gap-3 sm:flex">
@@ -72,6 +72,11 @@ export function FashionAccessories() {
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 </div>
+                {item.tag && (
+                  <span className="absolute left-4 top-4 rounded-full bg-ink/80 px-3 py-1 text-[9px] tracking-label uppercase text-champagne-bright">
+                    {item.tag}
+                  </span>
+                )}
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent p-5">
                   <p className="text-sm text-ivory">{item.name}</p>
                 </div>
