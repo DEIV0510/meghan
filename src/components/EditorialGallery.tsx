@@ -131,7 +131,6 @@ function GalleryTile({
     <button
       type="button"
       onClick={onOpen}
-      data-cursor="VER"
       className="group relative block h-full w-full overflow-hidden bg-graphite text-left"
     >
       <img

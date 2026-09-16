@@ -55,7 +55,6 @@ export function ModaEditorial() {
         {STRIP.map((item) => (
           <div
             key={item.id}
-            data-cursor="VER"
             className="group relative w-[58vw] shrink-0 snap-start overflow-hidden rounded-sm bg-ink sm:w-[19rem]"
           >
             <div className="aspect-[4/5] w-full overflow-hidden">

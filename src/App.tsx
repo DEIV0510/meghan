@@ -1,5 +1,4 @@
 import { CalzadoEditorial } from './components/CalzadoEditorial'
-import { CustomCursor } from './components/CustomCursor'
 import { EditorialGallery } from './components/EditorialGallery'
 import { FinalCTA } from './components/FinalCTA'
 import { Footer } from './components/Footer'
@@ -20,7 +19,6 @@ function App() {
   return (
     <SmoothScroll>
       <Loader />
-      <CustomCursor />
       <Navbar />
       <main>
         <Hero />

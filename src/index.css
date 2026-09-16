@@ -120,13 +120,6 @@
     font-style: italic;
   }
 
-  /* Custom cursor: real cursor hidden only on fine-pointer desktops once JS confirms it's ready. */
-  .cursor-ready a,
-  .cursor-ready button,
-  .cursor-ready [data-cursor] {
-    cursor: none;
-  }
-
   .animate-marquee {
     animation: marquee 42s linear infinite;
   }

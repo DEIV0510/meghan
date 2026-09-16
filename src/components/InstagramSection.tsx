@@ -19,7 +19,6 @@ function Row({ items, reverse }: { items: typeof ROW_A; reverse?: boolean }) {
             href={BRAND.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            data-cursor="VER"
             className="group relative block h-40 w-40 shrink-0 overflow-hidden sm:h-56 sm:w-56"
           >
             <img

@@ -111,7 +111,6 @@ export function Hero() {
           >
             <a
               href="#mundos"
-              data-cursor="VER"
               className="inline-flex items-center justify-center rounded-full border border-ivory/25 px-7 py-3.5 text-xs tracking-label uppercase text-ivory transition-all duration-300 hover:border-champagne hover:text-champagne-bright"
             >
               Explorar selección

@@ -57,7 +57,6 @@ export function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                data-cursor="VER"
                 className="text-[11px] tracking-label uppercase text-ivory/80 hover:text-champagne-bright transition-colors duration-300"
               >
                 {link.label}

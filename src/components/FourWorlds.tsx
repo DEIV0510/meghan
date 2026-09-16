@@ -59,7 +59,6 @@ export function FourWorlds() {
         <a
           key={world.n}
           href={world.href}
-          data-cursor="DESCUBRIR"
           className="group relative block h-[78vh] min-h-[460px] w-full overflow-hidden border-t border-champagne-dim/10 first:mt-8"
         >
           <img
