@@ -7,7 +7,7 @@ export function Manifesto() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section id="manifiesto" className="relative flex min-h-[90svh] items-center justify-center overflow-hidden bg-ink py-24">
+    <section id="manifiesto" className="relative flex min-h-[70svh] items-center justify-center overflow-hidden bg-ink py-20">
       <div className="absolute inset-0">
         <img
           src={blackoudAbyss}

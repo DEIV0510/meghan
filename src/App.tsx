@@ -1,5 +1,4 @@
 import { CalzadoEditorial } from './components/CalzadoEditorial'
-import { EditorialGallery } from './components/EditorialGallery'
 import { FinalCTA } from './components/FinalCTA'
 import { Footer } from './components/Footer'
 import { FourWorlds } from './components/FourWorlds'
@@ -28,7 +27,6 @@ function App() {
         <ModaEditorial />
         <LentesEditorial />
         <CalzadoEditorial />
-        <EditorialGallery />
         <Showroom />
         <InstagramSection />
         <FinalCTA />

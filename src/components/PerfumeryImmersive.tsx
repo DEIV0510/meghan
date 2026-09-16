@@ -46,7 +46,7 @@ export function PerfumeryImmersive() {
           scrollTrigger: {
             trigger: wrapRef.current,
             start: 'top top',
-            end: '+=220%',
+            end: '+=150%',
             scrub: 0.6,
             pin: stageRef.current,
           },

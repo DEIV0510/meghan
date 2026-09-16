@@ -5,7 +5,7 @@ import { WhatsAppButton } from './ui/WhatsAppButton'
 
 export function Showroom() {
   return (
-    <section id="showroom" className="relative min-h-[90vh] overflow-hidden bg-ink">
+    <section id="showroom" className="relative min-h-[68vh] overflow-hidden bg-ink">
       <img
         src={renderEntrance}
         alt="Concepto de diseño del showroom Meghan Luxury"
@@ -15,7 +15,7 @@ export function Showroom() {
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/30" />
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/40" />
 
-      <div className="relative mx-auto flex min-h-[90vh] max-w-[90rem] flex-col justify-center px-5 py-24 sm:px-8">
+      <div className="relative mx-auto flex min-h-[68vh] max-w-[90rem] flex-col justify-center px-5 py-20 sm:px-8">
         <Reveal>
           <span className="text-[11px] tracking-label uppercase text-champagne">Una invitación privada</span>
         </Reveal>

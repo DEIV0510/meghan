@@ -13,7 +13,7 @@ export function ModaEditorial() {
 
   return (
     <section id="moda" className="relative bg-graphite">
-      <div className="relative h-[86vh] min-h-[520px] w-full overflow-hidden">
+      <div className="relative h-[68vh] min-h-[440px] w-full overflow-hidden">
         <img
           src={tracksuitBlackRed}
           alt="Vie-Riche — selección de moda Meghan Luxury"
