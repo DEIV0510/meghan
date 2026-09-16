@@ -1,0 +1,128 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-serif: 'Playfair Display', 'Times New Roman', serif;
+  --font-sans: 'Jost', 'Segoe UI', sans-serif;
+
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #121212;
+  --color-graphite: #1c1b19;
+  --color-graphite-light: #2a2724;
+  --color-ivory: #f4efe4;
+  --color-ivory-dim: #d9d2c1;
+  --color-champagne: #c9a86a;
+  --color-champagne-bright: #e4c98a;
+  --color-champagne-dim: #8a7550;
+
+  --animate-fade-up: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-fade-in: fade-in 1.1s ease forwards;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-ink);
+    color: var(--color-ivory);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  ::selection {
+    background: var(--color-champagne);
+    color: var(--color-ink);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@keyframes meghan-hero-drift {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.1) translate3d(-1%, -1%, 0);
+  }
+}
+
+@layer utilities {
+  .tracking-wordmark {
+    letter-spacing: 0.28em;
+  }
+
+  .tracking-label {
+    letter-spacing: 0.22em;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gold-line {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-champagne) 50%,
+      transparent
+    );
+  }
+
+  .gold-underline {
+    background: linear-gradient(
+      90deg,
+      var(--color-champagne-dim),
+      var(--color-champagne-bright)
+    );
+  }
+}
