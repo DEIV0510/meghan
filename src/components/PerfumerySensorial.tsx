@@ -1,3 +1,6 @@
+import armafYumYum from '../assets/perfume/armaf-yum-yum.webp'
+import blackoudAbyss from '../assets/perfume/blackoud-abyss.webp'
+import bondTribeca from '../assets/perfume/bond-no9-tribeca.webp'
 import creedAventus from '../assets/perfume/creed-aventus.webp'
 import leLaboSantal from '../assets/perfume/le-labo-santal-33.webp'
 import montaleSensual from '../assets/perfume/montale-sensual-instinct.webp'
@@ -5,6 +8,15 @@ import { WA_MESSAGES } from '../data/brand'
 import { Reveal } from './Reveal'
 import { GoldStar } from './ui/GoldStar'
 import { WhatsAppButton } from './ui/WhatsAppButton'
+
+const MOSAIC = [
+  { src: creedAventus, alt: 'Creed Aventus', span: 'col-span-2 row-span-2' },
+  { src: montaleSensual, alt: 'Montale Paris Sensual Instinct', span: '' },
+  { src: blackoudAbyss, alt: 'Blackoud Abyss', span: '' },
+  { src: leLaboSantal, alt: 'Le Labo Santal 33', span: '' },
+  { src: bondTribeca, alt: 'Bond No. 9 TriBeCa', span: '' },
+  { src: armafYumYum, alt: 'Armaf Yum Yum', span: '' },
+]
 
 export function PerfumerySensorial() {
   return (
@@ -31,39 +43,19 @@ export function PerfumerySensorial() {
             </div>
           </Reveal>
 
-          <div className="relative grid grid-cols-2 gap-4 sm:gap-5">
-            <Reveal delay={0.1} className="col-span-2 sm:col-span-1">
-              <div className="aspect-[3/4] overflow-hidden rounded-sm border border-champagne-dim/20">
-                <img
-                  src={creedAventus}
-                  alt="Creed Aventus"
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out hover:scale-105"
-                />
-              </div>
-            </Reveal>
-            <div className="col-span-2 grid grid-cols-2 gap-4 sm:col-span-1 sm:grid-cols-1 sm:gap-5">
-              <Reveal delay={0.2}>
-                <div className="aspect-square overflow-hidden rounded-sm border border-champagne-dim/20">
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 lg:auto-rows-[8rem]">
+            {MOSAIC.map((item, i) => (
+              <Reveal key={item.alt} delay={0.08 * i} className={`${item.span} aspect-square lg:aspect-auto`}>
+                <div className="h-full w-full overflow-hidden rounded-sm border border-champagne-dim/20">
                   <img
-                    src={montaleSensual}
-                    alt="Montale Paris Sensual Instinct"
+                    src={item.src}
+                    alt={item.alt}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out hover:scale-105"
                   />
                 </div>
               </Reveal>
-              <Reveal delay={0.3}>
-                <div className="aspect-square overflow-hidden rounded-sm border border-champagne-dim/20">
-                  <img
-                    src={leLaboSantal}
-                    alt="Le Labo Santal 33"
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out hover:scale-105"
-                  />
-                </div>
-              </Reveal>
-            </div>
+            ))}
           </div>
         </div>
       </div>

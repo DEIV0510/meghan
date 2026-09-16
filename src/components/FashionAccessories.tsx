@@ -5,7 +5,18 @@ import { Reveal } from './Reveal'
 import { SectionHeading } from './ui/SectionHeading'
 import { WhatsAppButton } from './ui/WhatsAppButton'
 
-const STRIP = [...CAPS.slice(0, 3), ...GLASSES.slice(0, 3), ...SHOES.slice(0, 3)]
+function interleave<T>(...lists: T[][]): T[] {
+  const max = Math.max(...lists.map((l) => l.length))
+  const result: T[] = []
+  for (let i = 0; i < max; i++) {
+    for (const list of lists) {
+      if (list[i]) result.push(list[i])
+    }
+  }
+  return result
+}
+
+const STRIP = interleave(CAPS, GLASSES, SHOES)
 
 export function FashionAccessories() {
   const scrollerRef = useRef<HTMLDivElement>(null)
@@ -18,7 +29,11 @@ export function FashionAccessories() {
     <section id="accesorios" className="bg-graphite py-28 sm:py-36">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading kicker="Moda &amp; Accesorios" title="Un guardarropa sofisticado, pieza a pieza." />
+          <SectionHeading kicker="Moda &amp; Accesorios" title="Un guardarropa sofisticado, pieza a pieza.">
+            <p className="max-w-md text-sm text-ivory-dim">
+              {STRIP.length} piezas entre gorras, lentes y calzado de la colección.
+            </p>
+          </SectionHeading>
           <div className="hidden gap-3 sm:flex">
             <button
               type="button"

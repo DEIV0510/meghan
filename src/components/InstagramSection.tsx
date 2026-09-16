@@ -10,6 +10,9 @@ const MOSAIC = [
   SHOES[3],
   PERFUMES[4],
   CAPS[4],
+  GLASSES[3],
+  SHOES[0],
+  PERFUMES[9],
 ]
 
 export function InstagramSection() {
@@ -27,7 +30,7 @@ export function InstagramSection() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="mt-12 grid grid-cols-3 gap-2 sm:gap-4">
+          <div className="mt-12 grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-4">
             {MOSAIC.map((item, i) => (
               <a
                 key={item.id}
