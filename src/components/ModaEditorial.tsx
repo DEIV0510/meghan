@@ -11,6 +11,10 @@ const BRANDS = ['VIE-RICHE', 'NVLTY', 'CASABLANCA', 'AURUM', 'DOM APPAREL', 'GOO
 export function ModaEditorial() {
   const scrollerRef = useRef<HTMLDivElement>(null)
 
+  const scrollBy = (dir: 1 | -1) => {
+    scrollerRef.current?.scrollBy({ left: dir * 340, behavior: 'smooth' })
+  }
+
   return (
     <section id="moda" className="relative bg-graphite">
       <div className="relative h-[68vh] min-h-[440px] w-full overflow-hidden">
@@ -48,9 +52,33 @@ export function ModaEditorial() {
         </div>
       </div>
 
+      <div className="mx-auto flex max-w-[90rem] items-end justify-between px-5 pt-8 sm:px-8">
+        <p className="text-[11px] tracking-label uppercase text-ivory-dim/70">
+          {STRIP.length} piezas — la colección completa
+        </p>
+        <div className="hidden gap-3 sm:flex">
+          <button
+            type="button"
+            onClick={() => scrollBy(-1)}
+            aria-label="Anterior"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-ivory/20 text-ivory transition-colors hover:border-champagne hover:text-champagne-bright"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollBy(1)}
+            aria-label="Siguiente"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-ivory/20 text-ivory transition-colors hover:border-champagne hover:text-champagne-bright"
+          >
+            →
+          </button>
+        </div>
+      </div>
+
       <div
         ref={scrollerRef}
-        className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 py-8 sm:gap-4 sm:px-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 py-6 sm:gap-4 sm:px-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {STRIP.map((item) => (
           <div
