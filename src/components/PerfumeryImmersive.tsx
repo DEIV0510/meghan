@@ -5,12 +5,16 @@ import creedAventus from '../assets/perfume/creed-aventus.webp'
 import creedSilver from '../assets/perfume/creed-silver-mountain-water.webp'
 import leLaboSantal from '../assets/perfume/le-labo-santal-33.webp'
 import montaleSensual from '../assets/perfume/montale-sensual-instinct.webp'
+import { CATEGORIES, WA_MESSAGES } from '../data/brand'
+import { PERFUMES } from '../data/products'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
-import { WA_MESSAGES } from '../data/brand'
 import { loadGsap, type GsapContext } from '../lib/gsapLoader'
 import { Reveal } from './Reveal'
 import { GoldStar } from './ui/GoldStar'
+import { Marquee } from './ui/Marquee'
 import { WhatsAppButton } from './ui/WhatsAppButton'
+
+const CATEGORY = CATEGORIES[0]
 
 const SATELLITES = [
   { src: blackoudAbyss, alt: 'Blackoud Abyss', pos: 'left-[6%] top-[18%] sm:left-[10%]' },
@@ -19,6 +23,10 @@ const SATELLITES = [
   { src: armafYumYum, alt: 'Armaf Yum Yum', pos: 'right-[8%] bottom-[18%] sm:right-[16%]' },
   { src: creedSilver, alt: 'Creed Silver Mountain Water', pos: 'right-[2%] top-[42%] hidden lg:block' },
 ]
+
+const GALLERY_ROW = PERFUMES.filter((p) =>
+  ['bond-tribeca', 'le-labo-another', 'valentino-roma', 'ch-black', 'zakat-red', 'lattafa-yara', 'fugazzi-sugar-daddy'].includes(p.id),
+)
 
 export function PerfumeryImmersive() {
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -36,7 +44,17 @@ export function PerfumeryImmersive() {
     let ctx: GsapContext | undefined
 
     loadGsap().then(({ gsap }) => {
-      if (cancelled || !wrapRef.current) return
+      if (
+        cancelled ||
+        !wrapRef.current ||
+        !bottleRef.current ||
+        !labelRef.current ||
+        !finaleRef.current ||
+        !stageRef.current ||
+        satRefs.current.length === 0 ||
+        satRefs.current.some((el) => !el)
+      )
+        return
       ctx = gsap.context(() => {
         gsap.set(bottleRef.current, { scale: 0.4, opacity: 0.5 })
         gsap.set(satRefs.current, { opacity: 0, scale: 0.7 })
@@ -70,72 +88,101 @@ export function PerfumeryImmersive() {
     }
   }, [prefersReduced])
 
-  if (prefersReduced) {
-    return (
-      <section id="perfumeria" className="relative overflow-hidden bg-ink py-28">
-        <div className="mx-auto max-w-4xl px-5 text-center">
-          <div className="flex items-center justify-center gap-3 text-champagne">
-            <GoldStar className="h-3 w-3" />
-            <span className="text-[11px] tracking-label uppercase">Alta Perfumería</span>
-          </div>
-          <h2 className="mt-5 font-serif text-4xl text-ivory sm:text-5xl">El arte de elegir una esencia.</h2>
-          <img src={creedAventus} alt="Creed Aventus" className="mx-auto mt-10 w-full max-w-sm" loading="lazy" />
-          <p className="mt-8 font-display-number text-3xl text-champagne-bright">+400</p>
-          <p className="text-sm text-ivory-dim">Referencias exclusivas de alta perfumería</p>
-          <div className="mt-8">
-            <WhatsAppButton message={WA_MESSAGES.perfumeria}>Descubrir perfumería</WhatsAppButton>
-          </div>
+  const stage = prefersReduced ? (
+    <section className="relative overflow-hidden bg-ink py-28">
+      <div className="mx-auto max-w-4xl px-5 text-center">
+        <div className="flex items-center justify-center gap-3 text-champagne">
+          <GoldStar className="h-3 w-3" />
+          <span className="text-[11px] tracking-label uppercase">The Scent Edit</span>
         </div>
-      </section>
-    )
-  }
+        <h2 className="mt-5 font-serif text-4xl text-ivory sm:text-5xl">El arte de elegir una esencia.</h2>
+        <img src={creedAventus} alt="Creed Aventus" className="mx-auto mt-10 w-full max-w-sm" loading="lazy" />
+        <p className="mt-8 font-display-number text-3xl text-champagne-bright">+400</p>
+        <p className="text-sm text-ivory-dim">Referencias exclusivas de alta perfumería</p>
+        <div className="mt-8">
+          <WhatsAppButton message={WA_MESSAGES.perfumeria}>Descubrir perfumería</WhatsAppButton>
+        </div>
+      </div>
+    </section>
+  ) : (
+    <div ref={stageRef} className="relative h-[100svh] overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(198,165,104,0.06),_transparent_65%)]" />
+
+      <div ref={labelRef} className="absolute inset-x-0 top-[10%] flex flex-col items-center text-center opacity-0">
+        <div className="flex items-center gap-3 text-champagne">
+          <span className="font-display-number text-lg">{CATEGORY.number}</span>
+          <GoldStar className="h-3 w-3" />
+          <span className="text-[11px] tracking-label uppercase">The Scent Edit</span>
+        </div>
+        <h2 className="mt-4 max-w-xl font-serif text-3xl leading-tight text-ivory sm:text-5xl text-balance px-6">
+          El arte de elegir una esencia.
+        </h2>
+      </div>
+
+      {SATELLITES.map((sat, i) => (
+        <div
+          key={sat.alt}
+          ref={(el) => {
+            satRefs.current[i] = el
+          }}
+          className={`absolute h-24 w-24 overflow-hidden rounded-sm border border-champagne-dim/25 sm:h-32 sm:w-32 ${sat.pos}`}
+        >
+          <img src={sat.src} alt={sat.alt} loading="lazy" className="h-full w-full object-cover" />
+        </div>
+      ))}
+
+      <div className="absolute inset-0 flex items-center justify-center">
+        <img
+          ref={bottleRef}
+          src={creedAventus}
+          alt="Creed Aventus — alta perfumería Meghan Luxury"
+          className="h-[52vh] max-h-[420px] w-auto object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.6)] sm:h-[58vh]"
+        />
+      </div>
+
+      <div ref={finaleRef} className="absolute inset-x-0 bottom-[8%] flex flex-col items-center text-center opacity-0">
+        <p className="font-display-number text-4xl text-champagne-bright sm:text-5xl">+400</p>
+        <p className="mt-1 text-[11px] tracking-label uppercase text-ivory-dim">
+          Referencias exclusivas de alta perfumería
+        </p>
+        <p className="mt-3 text-xs text-ivory-dim/70">Bond No. 9 · Bianco Latte · Louis Vuitton · Creed · Versace</p>
+        <div className="mt-6">
+          <WhatsAppButton message={WA_MESSAGES.perfumeria}>Descubrir perfumería</WhatsAppButton>
+        </div>
+      </div>
+    </div>
+  )
 
   return (
     <div id="perfumeria" ref={wrapRef} className="relative bg-ink">
-      <div ref={stageRef} className="relative h-[100svh] overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(201,168,106,0.06),_transparent_65%)]" />
+      {stage}
 
-        <div ref={labelRef} className="absolute inset-x-0 top-[12%] flex flex-col items-center text-center opacity-0">
-          <div className="flex items-center gap-3 text-champagne">
-            <GoldStar className="h-3 w-3" />
-            <span className="text-[11px] tracking-label uppercase">Alta Perfumería</span>
-          </div>
-          <h2 className="mt-4 max-w-xl font-serif text-3xl leading-tight text-ivory sm:text-5xl text-balance px-6">
-            El arte de elegir una esencia.
-          </h2>
+      {/* Second beat — an offset row of real references, not a grid */}
+      <section className="relative overflow-hidden bg-ink py-20 sm:py-28">
+        <Reveal className="mx-auto mb-10 max-w-2xl px-5 text-center">
+          <p className="text-[11px] tracking-label uppercase text-champagne">Algunas referencias</p>
+          <p className="mt-2 text-sm text-ivory-dim">Una muestra de la curaduría disponible en el showroom.</p>
+        </Reveal>
+
+        <div className="flex gap-5 overflow-x-auto px-5 pb-4 sm:justify-center sm:overflow-visible sm:px-10">
+          {GALLERY_ROW.map((p, i) => (
+            <Reveal
+              key={p.id}
+              delay={i * 0.06}
+              className={`w-36 shrink-0 sm:w-44 ${i % 2 === 1 ? 'sm:mt-8' : ''}`}
+            >
+              <div className="aspect-[3/4] overflow-hidden rounded-sm border border-champagne-dim/15 bg-graphite">
+                <img src={p.image} alt={p.name} loading="lazy" className="h-full w-full object-contain p-4" />
+              </div>
+              <p className="mt-2 text-[11px] text-ivory-dim">{p.name}</p>
+            </Reveal>
+          ))}
         </div>
 
-        {SATELLITES.map((sat, i) => (
-          <div
-            key={sat.alt}
-            ref={(el) => {
-              satRefs.current[i] = el
-            }}
-            className={`absolute h-24 w-24 overflow-hidden rounded-sm border border-champagne-dim/25 sm:h-32 sm:w-32 ${sat.pos}`}
-          >
-            <img src={sat.src} alt={sat.alt} loading="lazy" className="h-full w-full object-cover" />
-          </div>
-        ))}
-
-        <div className="absolute inset-0 flex items-center justify-center">
-          <img
-            ref={bottleRef}
-            src={creedAventus}
-            alt="Creed Aventus — alta perfumería Meghan Luxury"
-            className="h-[52vh] max-h-[420px] w-auto object-contain drop-shadow-[0_40px_80px_rgba(0,0,0,0.6)] sm:h-[58vh]"
-          />
+        <div className="mt-14 border-y border-champagne-dim/10 py-4">
+          <Marquee items={CATEGORY.brands} className="text-sm tracking-label uppercase text-ivory-dim/70" />
         </div>
-
-        <div ref={finaleRef} className="absolute inset-x-0 bottom-[10%] flex flex-col items-center text-center opacity-0">
-          <p className="font-display-number text-4xl text-champagne-bright sm:text-5xl">+400</p>
-          <p className="mt-1 text-[11px] tracking-label uppercase text-ivory-dim">
-            Referencias exclusivas de alta perfumería
-          </p>
-          <div className="mt-6">
-            <WhatsAppButton message={WA_MESSAGES.perfumeria}>Descubrir perfumería</WhatsAppButton>
-          </div>
-        </div>
-      </div>
+      </section>
 
       <Reveal>
         <p className="sr-only">

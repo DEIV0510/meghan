@@ -1,10 +1,17 @@
 import { useEffect, useRef } from 'react'
 import shoeOffwhiteTop from '../assets/shoes/sneaker-offwhite-top.webp'
+import { CATEGORIES, WA_MESSAGES } from '../data/brand'
+import { CLIPS } from '../data/media'
+import { SHOES } from '../data/products'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
-import { WA_MESSAGES } from '../data/brand'
 import { loadGsap, type GsapContext } from '../lib/gsapLoader'
 import { Reveal } from './Reveal'
+import { ChapterMark } from './ui/ChapterMark'
+import { LazyVideo } from './ui/LazyVideo'
+import { Marquee } from './ui/Marquee'
 import { WhatsAppButton } from './ui/WhatsAppButton'
+
+const CATEGORY = CATEGORIES[3]
 
 export function CalzadoEditorial() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -18,11 +25,11 @@ export function CalzadoEditorial() {
     let ctx: GsapContext | undefined
 
     loadGsap().then(({ gsap }) => {
-      if (cancelled || !sectionRef.current) return
+      if (cancelled || !sectionRef.current || !shoeRef.current) return
       ctx = gsap.context(() => {
         gsap.to(shoeRef.current, {
-          xPercent: -8,
-          rotate: -2,
+          xPercent: -14,
+          rotate: -3,
           ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -42,35 +49,49 @@ export function CalzadoEditorial() {
 
   return (
     <section id="calzado" ref={sectionRef} className="relative overflow-hidden bg-ink py-28 sm:py-36">
-      <div className="mx-auto max-w-[90rem] px-5 sm:px-8">
-        <Reveal>
-          <div className="flex items-baseline gap-4">
-            <span className="font-display-number text-6xl text-ivory/10 sm:text-8xl">04</span>
-            <span className="text-[11px] tracking-label uppercase text-champagne">Footwear</span>
-          </div>
-        </Reveal>
+      <div className="mx-auto max-w-[92rem] px-5 sm:px-8">
+        <ChapterMark number={CATEGORY.number} kicker={CATEGORY.kicker} title={CATEGORY.title} />
 
-        <div className="relative mt-4 flex items-center justify-center">
+        <div className="relative mt-6 flex items-center justify-end overflow-hidden">
           <img
             ref={shoeRef}
             src={shoeOffwhiteTop}
             alt="Off-White — calzado de lujo Meghan Luxury"
             loading="lazy"
-            className="w-full max-w-2xl object-contain drop-shadow-[0_50px_90px_rgba(0,0,0,0.55)] sm:max-w-3xl"
+            className="w-full max-w-xl translate-x-[6%] object-contain drop-shadow-[0_50px_90px_rgba(0,0,0,0.55)] sm:max-w-2xl lg:max-w-3xl"
           />
         </div>
 
-        <Reveal delay={0.15}>
-          <div className="mt-8 flex flex-col items-center text-center">
-            <h2 className="font-serif text-3xl text-ivory sm:text-5xl">Sneakerhead culture & alta costura.</h2>
-            <p className="mt-4 max-w-md text-sm text-ivory-dim">
-              Nike · Jordan · Dolce &amp; Gabbana · Off-White · Christian Louboutin · Amiri · Philipp Plein
-            </p>
-            <div className="mt-8">
-              <WhatsAppButton message={WA_MESSAGES.calzado}>Descubrir calzado</WhatsAppButton>
+        <Reveal delay={0.1} className="mt-6 max-w-md text-sm text-ivory-dim sm:text-base">
+          {CATEGORY.description}
+        </Reveal>
+
+        {/* Horizontal-scroll strip of real product photography + one living clip */}
+        <div className="mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 sm:gap-5">
+          <Reveal className="shrink-0 snap-start">
+            <div className="h-64 w-48 overflow-hidden rounded-sm sm:h-80 sm:w-60">
+              <LazyVideo clip={CLIPS.calzadoSneakerWall} className="h-full w-full object-cover" />
+            </div>
+          </Reveal>
+          {SHOES.map((shoe, i) => (
+            <Reveal key={shoe.id} delay={i * 0.05} className="shrink-0 snap-start">
+              <div className="flex h-64 w-48 flex-col overflow-hidden rounded-sm bg-graphite sm:h-80 sm:w-60">
+                <img src={shoe.image} alt={shoe.name} loading="lazy" className="h-full w-full object-contain p-5" />
+              </div>
+              <p className="mt-2 w-48 text-[11px] text-ivory-dim sm:w-60">{shoe.name}</p>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-14 flex flex-col items-start justify-between gap-8 border-t border-champagne-dim/15 pt-10 sm:flex-row sm:items-end">
+          <div className="max-w-md">
+            <p className="text-[11px] tracking-label uppercase text-champagne">Casas representadas</p>
+            <div className="mt-3">
+              <Marquee items={CATEGORY.brands} className="text-sm tracking-label uppercase text-ivory-dim/70" speed="fast" />
             </div>
           </div>
-        </Reveal>
+          <WhatsAppButton message={WA_MESSAGES.calzado}>Descubrir calzado</WhatsAppButton>
+        </div>
       </div>
     </section>
   )

@@ -13,8 +13,8 @@ export function WhatsAppButton({ message, children, variant = 'solid', className
     'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-7 py-3.5 text-xs tracking-label uppercase transition-all duration-300 font-sans'
 
   const variants: Record<string, string> = {
-    solid: 'bg-champagne text-ink hover:bg-champagne-bright hover:shadow-[0_0_30px_rgba(201,168,106,0.35)]',
-    outline: 'border border-champagne/60 text-ivory hover:border-champagne hover:bg-champagne/10',
+    solid: 'bg-champagne text-ink hover:bg-champagne-bright',
+    outline: 'border border-champagne/50 text-ivory hover:border-champagne hover:bg-champagne/10',
     ghost: 'text-ivory/90 hover:text-champagne-bright underline underline-offset-4 decoration-champagne/40',
   }
 

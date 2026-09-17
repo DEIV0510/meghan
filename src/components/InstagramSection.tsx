@@ -1,13 +1,36 @@
 import { BRAND } from '../data/brand'
-import { APPAREL, CAPS, GLASSES, PERFUMES, SHOES } from '../data/products'
+import { APPAREL, CAMPAIGN, CAPS, GLASSES, PERFUMES, SHOES } from '../data/products'
 import { Reveal } from './Reveal'
 import { GoldStar } from './ui/GoldStar'
 
-const ROW_A = [PERFUMES[0], APPAREL[0], GLASSES[0], SHOES[0], PERFUMES[6], CAPS[1], APPAREL[5], PERFUMES[9]]
-const ROW_B = [APPAREL[10], SHOES[3], PERFUMES[4], CAPS[4], GLASSES[3], PERFUMES[12], APPAREL[18], SHOES[1]]
+const ROW_A = [
+  CAMPAIGN[0],
+  PERFUMES[0],
+  APPAREL[0],
+  CAMPAIGN[2],
+  GLASSES[0],
+  SHOES[0],
+  CAMPAIGN[5],
+  PERFUMES[6],
+  CAPS[1],
+]
+const ROW_B = [
+  APPAREL[10],
+  CAMPAIGN[8],
+  SHOES[3],
+  PERFUMES[4],
+  CAMPAIGN[11],
+  CAPS[4],
+  GLASSES[3],
+  CAMPAIGN[3],
+  PERFUMES[12],
+]
 
-function Row({ items, reverse }: { items: typeof ROW_A; reverse?: boolean }) {
+type RowItem = { id: string; image: string; name?: string }
+
+function Row({ items, reverse, tall }: { items: RowItem[]; reverse?: boolean; tall?: boolean }) {
   const doubled = [...items, ...items]
+  const size = tall ? 'h-48 w-40 sm:h-64 sm:w-56' : 'h-36 w-36 sm:h-48 sm:w-48'
   return (
     <div className="flex overflow-hidden">
       <div
@@ -19,11 +42,11 @@ function Row({ items, reverse }: { items: typeof ROW_A; reverse?: boolean }) {
             href={BRAND.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative block h-40 w-40 shrink-0 overflow-hidden sm:h-56 sm:w-56"
+            className={`group relative block shrink-0 overflow-hidden ${size}`}
           >
             <img
               src={item.image}
-              alt={item.name}
+              alt={item.name ?? 'Meghan Luxury'}
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
@@ -49,7 +72,7 @@ export function InstagramSection() {
       </Reveal>
 
       <div className="flex flex-col gap-3 sm:gap-4">
-        <Row items={ROW_A} />
+        <Row items={ROW_A} tall />
         <Row items={ROW_B} reverse />
       </div>
 

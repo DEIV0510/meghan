@@ -1,3 +1,5 @@
+import type { CategoryKey } from './brand'
+
 // Perfume imports
 import odysseyMandarin from '../assets/perfume/odyssey-mandarin.webp'
 import armafClubDeNuit from '../assets/perfume/armaf-club-de-nuit-intense.webp'
@@ -21,7 +23,7 @@ import zakat25 from '../assets/perfume/zakat-25-green.webp'
 import lattafaYara from '../assets/perfume/lattafa-yara.webp'
 import armafSillage from '../assets/perfume/armaf-club-de-nuit-sillage.webp'
 
-// Caps
+// Caps — Dom Apparel (diseñador colombiano confirmado en el dossier)
 import capBlack from '../assets/caps/dom-nomad-luxe-black.webp'
 import capMaison from '../assets/caps/dom-apparel-maison.webp'
 import capGold from '../assets/caps/dom-gold.webp'
@@ -40,13 +42,13 @@ import glassesSimpleGold from '../assets/glasses/sunglasses-simple-gold.webp'
 import glassesViolet from '../assets/glasses/sunglasses-violet.webp'
 import glassesDetail from '../assets/glasses/sunglasses-detail.webp'
 
-// Shoes
+// Shoes — marcas identificadas directamente en el producto fotografiado
 import shoeOffwhiteTop from '../assets/shoes/sneaker-offwhite-top.webp'
 import shoeOffwhiteSole from '../assets/shoes/sneaker-offwhite-sole.webp'
 import shoeOffwhiteProfile from '../assets/shoes/sneaker-offwhite-profile.webp'
-import shoeWhiteBack from '../assets/shoes/sneaker-white-back.webp'
-import shoeWhiteTop from '../assets/shoes/sneaker-white-top.webp'
-import shoeWhiteAngle from '../assets/shoes/sneaker-white-angle.webp'
+import shoeKarlBack from '../assets/shoes/sneaker-white-back.webp'
+import shoeKarlTop from '../assets/shoes/sneaker-white-top.webp'
+import shoeKarlAngle from '../assets/shoes/sneaker-white-angle.webp'
 
 // Apparel — Vie-Riche (línea americana confirmada en el dossier de marca)
 import tracksuitBlackRed from '../assets/apparel/vieriche-tracksuit-black-red.webp'
@@ -74,92 +76,185 @@ import teeFlatlay from '../assets/apparel/riche-worldwide-tee-flatlay.webp'
 import jerseyBlackRed from '../assets/apparel/riche-jersey-black-red.webp'
 import poloWingGraphic from '../assets/apparel/vieriche-polo-wing-graphic.webp'
 import jerseyWhiteBlue from '../assets/apparel/riche-jersey-white-blue.webp'
+import poloBluePink from '../assets/apparel/vieriche-polo-blue-pink.webp'
+import poloBlueRiche from '../assets/apparel/vieriche-polo-blue-riche.webp'
+import trackBlackWhite from '../assets/apparel/vieriche-track-black-white.webp'
+import trackBlackCrest from '../assets/apparel/vieriche-track-black-crest.webp'
+import trackGreyPink from '../assets/apparel/vieriche-track-grey-pink.webp'
+import trackGreyPinkBack from '../assets/apparel/vieriche-track-grey-pink-back.webp'
+import jerseyNavyCrestBack from '../assets/apparel/vieriche-jersey-navy-crest-back.webp'
+import jerseyNavyProlificFront from '../assets/apparel/vieriche-jersey-navy-prolific-front.webp'
+
+// Campaign editorial — fotografía de campaña real (Vie-Riche / Prolific), usada
+// como material de moda editorial, no como catálogo de producto individual.
+import estateCreamCar from '../assets/campaign/estate-cream-car.webp'
+import crewStudioLookbook from '../assets/campaign/crew-studio-lookbook.webp'
+import yachtHelicopter from '../assets/campaign/yacht-helicopter.webp'
+import tennisCourt from '../assets/campaign/tennis-court.webp'
+import loungeChairEstate from '../assets/campaign/lounge-chair-estate.webp'
+import privateJet from '../assets/campaign/private-jet.webp'
+import purplePorsche from '../assets/campaign/purple-porsche-driveway.webp'
+import purpleSuvWide from '../assets/campaign/purple-suv-wide.webp'
+import pitchJerseysFlatlay from '../assets/campaign/pitch-jerseys-flatlay.webp'
+import arenaTracksuitWalk from '../assets/campaign/arena-tracksuit-walk.webp'
+import lvTrunkVan from '../assets/campaign/lv-trunk-van.webp'
+import gardenHosePlay from '../assets/campaign/garden-hose-play.webp'
+import denimCrewBrick from '../assets/campaign/denim-crew-brick.webp'
+import armchairPortrait from '../assets/campaign/armchair-portrait.webp'
+import carInteriorJersey from '../assets/campaign/car-interior-jersey.webp'
+import golfCourse from '../assets/campaign/golf-course.webp'
+import convertibleInterior from '../assets/campaign/convertible-interior.webp'
+import suvEstateTee from '../assets/campaign/suv-estate-tee.webp'
+import turquoiseBeachHouse from '../assets/campaign/turquoise-beach-house.webp'
+import suvInteriorNeon from '../assets/campaign/suv-interior-neon.webp'
+import fourFriendsStudio from '../assets/campaign/four-friends-studio.webp'
+import pitchDuoNets from '../assets/campaign/pitch-duo-nets.webp'
+import rooftopDuoMasks from '../assets/campaign/rooftop-duo-masks.webp'
+import convertibleDuoMasks from '../assets/campaign/convertible-duo-masks.webp'
+
+// Showroom — render conceptual del espacio (no fotografía en vivo)
+import showroomRender01 from '../assets/showroom/render-01.webp'
+import showroomRender02 from '../assets/showroom/render-02.webp'
+import showroomRenderLogo from '../assets/showroom/render-04-logo.webp'
+import showroomEntrance from '../assets/showroom/render-05-entrance.webp'
 
 export interface Product {
   id: string
   name: string
   image: string
+  category: CategoryKey | 'gorras'
   tag?: string
 }
 
 export const PERFUMES: Product[] = [
-  { id: 'creed-aventus', name: 'Creed · Aventus', image: creedAventus, tag: 'Icónico' },
-  { id: 'blackoud-abyss', name: 'Blackoud · Abyss', image: blackoudAbyss },
-  { id: 'bond-tribeca', name: 'Bond No. 9 · TriBeCa', image: bondTribeca },
-  { id: 'creed-silver', name: 'Creed · Silver Mountain Water', image: creedSilver },
-  { id: 'le-labo-santal', name: 'Le Labo · Santal 33', image: leLaboSantal, tag: 'Culto' },
-  { id: 'le-labo-bergamote', name: 'Le Labo · Bergamote 22', image: leLaboBergamote },
-  { id: 'le-labo-another', name: 'Le Labo · Another 13', image: leLaboAnother },
-  { id: 'valentino-roma', name: 'Valentino · Born in Roma Intense', image: valentinoRoma },
-  { id: 'ch-black', name: 'Carolina Herrera · 212 VIP Black', image: chBlack },
-  { id: 'montale-sensual', name: 'Montale Paris · Sensual Instinct', image: montaleSensual },
-  { id: 'blackoud-opulent', name: 'Blackoud · Opulent', image: blackoudOpulent },
-  { id: 'armaf-club-nuit', name: 'Armaf · Club de Nuit Intense', image: armafClubDeNuit },
-  { id: 'armaf-sillage', name: 'Armaf · Club de Nuit Sillage', image: armafSillage },
-  { id: 'armaf-yum-yum', name: 'Armaf · Yum Yum', image: armafYumYum },
-  { id: 'zakat-fire', name: 'Zakat · You Are My Fire', image: zakatFire },
-  { id: 'zakat-red', name: 'Zakat · Colección Mosaico', image: zakatRed },
-  { id: 'zakat-25', name: 'Zakat · 25', image: zakat25 },
-  { id: 'lattafa-yara', name: 'Lattafa · Yara', image: lattafaYara },
-  { id: 'odyssey-mandarin', name: 'Odyssey · Mandarin', image: odysseyMandarin },
-  { id: 'fugazzi-pomegranoudh', name: 'Fugazzi · Pomegranoudh', image: fugazziPomegranoudh },
-  { id: 'fugazzi-sugar-daddy', name: 'Fugazzi · Sugar Daddy', image: fugazziSugarDaddy },
+  { id: 'creed-aventus', name: 'Creed · Aventus', image: creedAventus, category: 'perfumeria', tag: 'Icónico' },
+  { id: 'blackoud-abyss', name: 'Blackoud · Abyss', image: blackoudAbyss, category: 'perfumeria' },
+  { id: 'bond-tribeca', name: 'Bond No. 9 · TriBeCa', image: bondTribeca, category: 'perfumeria' },
+  { id: 'creed-silver', name: 'Creed · Silver Mountain Water', image: creedSilver, category: 'perfumeria' },
+  { id: 'le-labo-santal', name: 'Le Labo · Santal 33', image: leLaboSantal, category: 'perfumeria', tag: 'Culto' },
+  { id: 'le-labo-bergamote', name: 'Le Labo · Bergamote 22', image: leLaboBergamote, category: 'perfumeria' },
+  { id: 'le-labo-another', name: 'Le Labo · Another 13', image: leLaboAnother, category: 'perfumeria' },
+  { id: 'valentino-roma', name: 'Valentino · Born in Roma Intense', image: valentinoRoma, category: 'perfumeria' },
+  { id: 'ch-black', name: 'Carolina Herrera · 212 VIP Black', image: chBlack, category: 'perfumeria' },
+  { id: 'montale-sensual', name: 'Montale Paris · Sensual Instinct', image: montaleSensual, category: 'perfumeria' },
+  { id: 'blackoud-opulent', name: 'Blackoud · Opulent', image: blackoudOpulent, category: 'perfumeria' },
+  { id: 'armaf-club-nuit', name: 'Armaf · Club de Nuit Intense', image: armafClubDeNuit, category: 'perfumeria' },
+  { id: 'armaf-sillage', name: 'Armaf · Club de Nuit Sillage', image: armafSillage, category: 'perfumeria' },
+  { id: 'armaf-yum-yum', name: 'Armaf · Yum Yum', image: armafYumYum, category: 'perfumeria' },
+  { id: 'zakat-fire', name: 'Zakat · You Are My Fire', image: zakatFire, category: 'perfumeria' },
+  { id: 'zakat-red', name: 'Zakat · Colección Mosaico', image: zakatRed, category: 'perfumeria' },
+  { id: 'zakat-25', name: 'Zakat · 25', image: zakat25, category: 'perfumeria' },
+  { id: 'lattafa-yara', name: 'Lattafa · Yara', image: lattafaYara, category: 'perfumeria' },
+  { id: 'odyssey-mandarin', name: 'Odyssey · Mandarin', image: odysseyMandarin, category: 'perfumeria' },
+  { id: 'fugazzi-pomegranoudh', name: 'Fugazzi · Pomegranoudh', image: fugazziPomegranoudh, category: 'perfumeria' },
+  { id: 'fugazzi-sugar-daddy', name: 'Fugazzi · Sugar Daddy', image: fugazziSugarDaddy, category: 'perfumeria' },
 ]
 
 export const CAPS: Product[] = [
-  { id: 'cap-black', name: 'Dom Apparel · Nomad Luxe', image: capBlack },
-  { id: 'cap-maison', name: 'Dom Apparel · Maison Éminence', image: capMaison },
-  { id: 'cap-gold', name: 'Dom Apparel · Gold', image: capGold },
-  { id: 'cap-gothic', name: 'Dom Apparel · Gothic D', image: capGothic },
-  { id: 'cap-white-red', name: 'Dom Apparel · White/Red', image: capWhiteRed },
-  { id: 'cap-blackout', name: 'Dom Apparel · Blackout', image: capBlackout },
-  { id: 'cap-blue-white', name: 'Dom Apparel · Blue/White', image: capBlueWhite },
-  { id: 'cap-1997', name: 'Dom Apparel · 1997', image: cap1997 },
+  { id: 'cap-black', name: 'Dom Apparel · Nomad Luxe', image: capBlack, category: 'gorras', tag: 'Dom Apparel' },
+  { id: 'cap-maison', name: 'Dom Apparel · Maison Éminence', image: capMaison, category: 'gorras', tag: 'Dom Apparel' },
+  { id: 'cap-gold', name: 'Dom Apparel · Gold', image: capGold, category: 'gorras', tag: 'Dom Apparel' },
+  { id: 'cap-gothic', name: 'Dom Apparel · Gothic D', image: capGothic, category: 'gorras', tag: 'Dom Apparel' },
+  { id: 'cap-white-red', name: 'Dom Apparel · White/Red', image: capWhiteRed, category: 'gorras', tag: 'Dom Apparel' },
+  { id: 'cap-blackout', name: 'Dom Apparel · Blackout', image: capBlackout, category: 'gorras', tag: 'Dom Apparel' },
+  { id: 'cap-blue-white', name: 'Dom Apparel · Blue/White', image: capBlueWhite, category: 'gorras', tag: 'Dom Apparel' },
+  { id: 'cap-1997', name: 'Dom Apparel · 1997', image: cap1997, category: 'gorras', tag: 'Dom Apparel' },
 ]
 
 export const GLASSES: Product[] = [
-  { id: 'glasses-gold-blue', name: 'Montura dorada · Azul', image: glassesGoldBlue },
-  { id: 'glasses-gold-clear', name: 'Montura dorada · Cristal', image: glassesGoldClear },
-  { id: 'glasses-navy', name: 'Montura dorada · Navy', image: glassesNavy },
-  { id: 'glasses-braid', name: 'Montura trenzada · Cristal', image: glassesBraid },
-  { id: 'glasses-simple-gold', name: 'Montura dorada · Clásica', image: glassesSimpleGold },
-  { id: 'glasses-violet', name: 'Montura facetada · Violeta', image: glassesViolet },
-  { id: 'glasses-detail', name: 'Detalle de bisagra', image: glassesDetail },
+  { id: 'glasses-gold-blue', name: 'Montura dorada · Cristal azul', image: glassesGoldBlue, category: 'lentes' },
+  { id: 'glasses-gold-clear', name: 'Montura dorada · Cristal', image: glassesGoldClear, category: 'lentes' },
+  { id: 'glasses-navy', name: 'Montura dorada · Navy', image: glassesNavy, category: 'lentes' },
+  { id: 'glasses-braid', name: 'Montura trenzada · Cristal', image: glassesBraid, category: 'lentes' },
+  { id: 'glasses-simple-gold', name: 'Montura dorada · Clásica', image: glassesSimpleGold, category: 'lentes' },
+  { id: 'glasses-violet', name: 'Montura facetada · Violeta', image: glassesViolet, category: 'lentes' },
+  { id: 'glasses-detail', name: 'Detalle de bisagra', image: glassesDetail, category: 'lentes' },
 ]
 
 export const SHOES: Product[] = [
-  { id: 'shoe-offwhite-top', name: 'Off-White · Trail Runner', image: shoeOffwhiteTop },
-  { id: 'shoe-offwhite-sole', name: 'Off-White · Trail Runner', image: shoeOffwhiteSole },
-  { id: 'shoe-offwhite-profile', name: 'Off-White · Trail Runner', image: shoeOffwhiteProfile },
-  { id: 'shoe-white-back', name: 'Sneaker de colección', image: shoeWhiteBack },
-  { id: 'shoe-white-top', name: 'Sneaker de colección', image: shoeWhiteTop },
-  { id: 'shoe-white-angle', name: 'Sneaker de colección', image: shoeWhiteAngle },
+  { id: 'shoe-offwhite-top', name: 'Off-White · Trail Runner', image: shoeOffwhiteTop, category: 'calzado', tag: 'Off-White' },
+  { id: 'shoe-offwhite-sole', name: 'Off-White · Trail Runner', image: shoeOffwhiteSole, category: 'calzado', tag: 'Off-White' },
+  { id: 'shoe-offwhite-profile', name: 'Off-White · Trail Runner', image: shoeOffwhiteProfile, category: 'calzado', tag: 'Off-White' },
+  { id: 'shoe-karl-back', name: 'Karl Lagerfeld · Sneaker', image: shoeKarlBack, category: 'calzado', tag: 'Karl Lagerfeld' },
+  { id: 'shoe-karl-top', name: 'Karl Lagerfeld · Sneaker', image: shoeKarlTop, category: 'calzado', tag: 'Karl Lagerfeld' },
+  { id: 'shoe-karl-angle', name: 'Karl Lagerfeld · Sneaker', image: shoeKarlAngle, category: 'calzado', tag: 'Karl Lagerfeld' },
 ]
 
 export const APPAREL: Product[] = [
-  { id: 'tracksuit-black-red', name: 'Vie-Riche · Tracksuit Black/Red', image: tracksuitBlackRed, tag: 'Vie-Riche' },
-  { id: 'tracksuit-navy-orange', name: 'Vie-Riche · Tracksuit Navy/Orange', image: tracksuitNavyOrange, tag: 'Vie-Riche' },
-  { id: 'tracksuit-burgundy', name: 'Vie-Riche · Tracksuit Burgundy', image: tracksuitBurgundy, tag: 'Vie-Riche' },
-  { id: 'set-black-white', name: 'Vie-Riche · Set Black/White', image: setBlackWhite, tag: 'Vie-Riche' },
-  { id: 'set-grey-pink-front', name: 'Vie-Riche · Set Grey/Pink', image: setGreyPinkFront, tag: 'Vie-Riche' },
-  { id: 'set-grey-pink-back', name: 'Vie-Riche · Set Grey/Pink', image: setGreyPinkBack, tag: 'Vie-Riche' },
-  { id: 'set-green-front', name: 'Vie-Riche · Set Green', image: setGreenFront, tag: 'Vie-Riche' },
-  { id: 'set-green-back', name: 'Vie-Riche · Set Green', image: setGreenBack, tag: 'Vie-Riche' },
-  { id: 'set-blue-pink-front', name: 'Vie-Riche · Set Blue/Pink', image: setBluePinkFront, tag: 'Vie-Riche' },
-  { id: 'set-blue-pink-back', name: 'Vie-Riche · Set Blue/Pink', image: setBluePinkBack, tag: 'Vie-Riche' },
-  { id: 'track-lightblue-back', name: 'Riche Worldwide · Track Light Blue', image: trackLightblueBack, tag: 'Riche Worldwide' },
-  { id: 'track-teal-a', name: 'Riche Worldwide · Track Teal', image: trackTealA, tag: 'Riche Worldwide' },
-  { id: 'track-teal-b', name: 'Riche Worldwide · Track Teal', image: trackTealB, tag: 'Riche Worldwide' },
-  { id: 'track-grey-back', name: 'Riche Worldwide · Track Grey', image: trackGreyBack, tag: 'Riche Worldwide' },
-  { id: 'track-grey-front', name: 'Riche Worldwide · Track Grey', image: trackGreyFront, tag: 'Riche Worldwide' },
-  { id: 'camp-shirt-teal', name: 'Vie-Riche · Camp Shirt Teal', image: campShirtTeal, tag: 'Vie-Riche' },
-  { id: 'set-flatlay-teal', name: 'Vie-Riche · Set Teal', image: setFlatlayTeal, tag: 'Vie-Riche' },
-  { id: 'set-flatlay-beige', name: 'Vie-Riche · Set Beige', image: setFlatlayBeige, tag: 'Vie-Riche' },
-  { id: 'jacket-green', name: 'Riche Worldwide · Jacket Green', image: jacketGreen, tag: 'Riche Worldwide' },
-  { id: 'jacket-navy', name: 'Riche Worldwide · Jacket Navy', image: jacketNavy, tag: 'Riche Worldwide' },
-  { id: 'jacket-red', name: 'Riche Worldwide · Jacket Red', image: jacketRed, tag: 'Riche Worldwide' },
-  { id: 'tee-flatlay', name: 'Riche Worldwide · Tee', image: teeFlatlay, tag: 'Riche Worldwide' },
-  { id: 'jersey-black-red', name: 'Riche · Jersey Black/Red', image: jerseyBlackRed, tag: 'Riche' },
-  { id: 'polo-wing-graphic', name: 'Vieriche Estate · Polo', image: poloWingGraphic, tag: 'Vieriche Estate' },
-  { id: 'jersey-white-blue', name: 'Riche · Jersey White/Blue', image: jerseyWhiteBlue, tag: 'Riche' },
+  { id: 'tracksuit-black-red', name: 'Vie-Riche · Tracksuit Black/Red', image: tracksuitBlackRed, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'tracksuit-navy-orange', name: 'Vie-Riche · Tracksuit Navy/Orange', image: tracksuitNavyOrange, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'tracksuit-burgundy', name: 'Vie-Riche · Tracksuit Burgundy', image: tracksuitBurgundy, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'set-black-white', name: 'Vie-Riche · Set Black/White', image: setBlackWhite, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'set-grey-pink-front', name: 'Vie-Riche · Set Grey/Pink', image: setGreyPinkFront, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'set-grey-pink-back', name: 'Vie-Riche · Set Grey/Pink', image: setGreyPinkBack, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'set-green-front', name: 'Vie-Riche · Set Green', image: setGreenFront, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'set-green-back', name: 'Vie-Riche · Set Green', image: setGreenBack, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'set-blue-pink-front', name: 'Vie-Riche · Set Blue/Pink', image: setBluePinkFront, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'set-blue-pink-back', name: 'Vie-Riche · Set Blue/Pink', image: setBluePinkBack, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'track-lightblue-back', name: 'Vie-Riche · Track Light Blue', image: trackLightblueBack, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'track-teal-a', name: 'Vie-Riche · Track Teal', image: trackTealA, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'track-teal-b', name: 'Vie-Riche · Track Teal', image: trackTealB, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'track-grey-back', name: 'Vie-Riche · Track Grey', image: trackGreyBack, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'track-grey-front', name: 'Vie-Riche · Track Grey', image: trackGreyFront, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'camp-shirt-teal', name: 'Vie-Riche · Camp Shirt Teal', image: campShirtTeal, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'set-flatlay-teal', name: 'Vie-Riche · Set Teal', image: setFlatlayTeal, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'set-flatlay-beige', name: 'Vie-Riche · Set Beige', image: setFlatlayBeige, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'jacket-green', name: 'Vie-Riche · Jacket Green', image: jacketGreen, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'jacket-navy', name: 'Vie-Riche · Jacket Navy', image: jacketNavy, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'jacket-red', name: 'Vie-Riche · Jacket Red', image: jacketRed, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'tee-flatlay', name: 'Vie-Riche · Tee', image: teeFlatlay, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'jersey-black-red', name: 'Vie-Riche · Jersey Black/Red', image: jerseyBlackRed, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'polo-wing-graphic', name: 'Vie-Riche · Polo Estate', image: poloWingGraphic, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'jersey-white-blue', name: 'Vie-Riche · Jersey White/Blue', image: jerseyWhiteBlue, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'polo-blue-pink', name: 'Vie-Riche · Polo Blue/Pink', image: poloBluePink, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'polo-blue-riche', name: 'Vie-Riche · Polo Riche', image: poloBlueRiche, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'track-black-white', name: 'Vie-Riche · Track Black/White', image: trackBlackWhite, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'track-black-crest', name: 'Vie-Riche · Track Crest', image: trackBlackCrest, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'track-grey-pink', name: 'Vie-Riche · Track Grey/Pink', image: trackGreyPink, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'track-grey-pink-back', name: 'Vie-Riche · Track Grey/Pink', image: trackGreyPinkBack, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'jersey-navy-crest-back', name: 'Vie-Riche · Jersey Crest', image: jerseyNavyCrestBack, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'jersey-navy-prolific', name: 'Vie-Riche · Jersey Prolific', image: jerseyNavyProlificFront, category: 'moda', tag: 'Vie-Riche' },
 ]
+
+export interface CampaignPlate {
+  id: string
+  image: string
+  orientation: 'V' | 'H'
+  hero?: boolean
+}
+
+export const CAMPAIGN: CampaignPlate[] = [
+  { id: 'estate-cream-car', image: estateCreamCar, orientation: 'V', hero: true },
+  { id: 'crew-studio-lookbook', image: crewStudioLookbook, orientation: 'V', hero: true },
+  { id: 'yacht-helicopter', image: yachtHelicopter, orientation: 'V', hero: true },
+  { id: 'tennis-court', image: tennisCourt, orientation: 'V', hero: true },
+  { id: 'lounge-chair-estate', image: loungeChairEstate, orientation: 'H', hero: true },
+  { id: 'private-jet', image: privateJet, orientation: 'V', hero: true },
+  { id: 'purple-porsche-driveway', image: purplePorsche, orientation: 'V', hero: true },
+  { id: 'purple-suv-wide', image: purpleSuvWide, orientation: 'H', hero: true },
+  { id: 'pitch-jerseys-flatlay', image: pitchJerseysFlatlay, orientation: 'V', hero: true },
+  { id: 'arena-tracksuit-walk', image: arenaTracksuitWalk, orientation: 'V', hero: true },
+  { id: 'lv-trunk-van', image: lvTrunkVan, orientation: 'V', hero: true },
+  { id: 'garden-hose-play', image: gardenHosePlay, orientation: 'V', hero: true },
+  { id: 'denim-crew-brick', image: denimCrewBrick, orientation: 'V' },
+  { id: 'armchair-portrait', image: armchairPortrait, orientation: 'V' },
+  { id: 'car-interior-jersey', image: carInteriorJersey, orientation: 'V' },
+  { id: 'golf-course', image: golfCourse, orientation: 'V' },
+  { id: 'convertible-interior', image: convertibleInterior, orientation: 'V' },
+  { id: 'suv-estate-tee', image: suvEstateTee, orientation: 'V' },
+  { id: 'turquoise-beach-house', image: turquoiseBeachHouse, orientation: 'V' },
+  { id: 'suv-interior-neon', image: suvInteriorNeon, orientation: 'H' },
+  { id: 'four-friends-studio', image: fourFriendsStudio, orientation: 'V' },
+  { id: 'pitch-duo-nets', image: pitchDuoNets, orientation: 'V' },
+  { id: 'rooftop-duo-masks', image: rooftopDuoMasks, orientation: 'V' },
+  { id: 'convertible-duo-masks', image: convertibleDuoMasks, orientation: 'V' },
+]
+
+export const SHOWROOM_RENDERS = {
+  main: showroomRender01,
+  secondary: showroomRender02,
+  logoWall: showroomRenderLogo,
+  entrance: showroomEntrance,
+}
+
+export const ALL_PRODUCTS: Product[] = [...PERFUMES, ...APPAREL, ...GLASSES, ...SHOES, ...CAPS]

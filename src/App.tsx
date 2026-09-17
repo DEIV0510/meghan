@@ -1,7 +1,7 @@
+import { Archive } from './components/Archive'
 import { CalzadoEditorial } from './components/CalzadoEditorial'
 import { FinalCTA } from './components/FinalCTA'
 import { Footer } from './components/Footer'
-import { FourWorlds } from './components/FourWorlds'
 import { Hero } from './components/Hero'
 import { InstagramSection } from './components/InstagramSection'
 import { LentesEditorial } from './components/LentesEditorial'
@@ -22,11 +22,11 @@ function App() {
       <main>
         <Hero />
         <Manifesto />
-        <FourWorlds />
         <PerfumeryImmersive />
         <ModaEditorial />
         <LentesEditorial />
         <CalzadoEditorial />
+        <Archive />
         <Showroom />
         <InstagramSection />
         <FinalCTA />

@@ -1,108 +1,85 @@
-import { useRef } from 'react'
-import tracksuitBlackRed from '../assets/apparel/vieriche-tracksuit-black-red.webp'
-import { WA_MESSAGES } from '../data/brand'
-import { APPAREL, CAPS } from '../data/products'
+import { CATEGORIES } from '../data/brand'
+import { CAMPAIGN } from '../data/products'
+import { CLIPS } from '../data/media'
 import { Reveal } from './Reveal'
-import { WhatsAppButton } from './ui/WhatsAppButton'
+import { ChapterMark } from './ui/ChapterMark'
+import { LazyVideo } from './ui/LazyVideo'
+import { Marquee } from './ui/Marquee'
 
-const STRIP = [...APPAREL, ...CAPS]
-const BRANDS = ['VIE-RICHE', 'NVLTY', 'CASABLANCA', 'AURUM', 'DOM APPAREL', 'GOORIN BROS.']
+const CATEGORY = CATEGORIES[1]
+const [FEATURE, ...REST] = CAMPAIGN.filter((c) => c.hero)
+const MASONRY = REST
 
 export function ModaEditorial() {
-  const scrollerRef = useRef<HTMLDivElement>(null)
-
-  const scrollBy = (dir: 1 | -1) => {
-    scrollerRef.current?.scrollBy({ left: dir * 340, behavior: 'smooth' })
-  }
-
   return (
-    <section id="moda" className="relative bg-graphite">
-      <div className="relative h-[68vh] min-h-[440px] w-full overflow-hidden">
-        <img
-          src={tracksuitBlackRed}
-          alt="Vie-Riche — selección de moda Meghan Luxury"
-          className="h-full w-full object-cover object-[30%_20%]"
-          loading="lazy"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-graphite via-graphite/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-graphite/70 via-transparent to-transparent" />
+    <section id="moda" className="relative overflow-hidden bg-ink py-24 sm:py-32">
+      <div className="mx-auto max-w-[92rem] px-5 sm:px-8">
+        <ChapterMark number={CATEGORY.number} kicker={CATEGORY.kicker} title={CATEGORY.title} />
+        <Reveal delay={0.15} className="mt-6 max-w-xl text-sm text-ivory-dim sm:text-base">
+          {CATEGORY.description}
+        </Reveal>
 
-        <div className="relative z-10 mx-auto flex h-full max-w-[90rem] flex-col justify-end px-5 pb-14 sm:px-8">
-          <Reveal>
-            <span className="text-[11px] tracking-label uppercase text-champagne">The Collection</span>
-            <h2 className="mt-4 max-w-xl font-serif text-4xl leading-[0.98] text-ivory sm:text-6xl">
-              Moda internacional y diseñadores colombianos.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mt-5 flex flex-wrap gap-x-3 gap-y-1 text-[11px] tracking-label uppercase text-ivory-dim/80">
-              {BRANDS.map((b, i) => (
-                <span key={b}>
-                  {b}
-                  {i < BRANDS.length - 1 && <span className="ml-3 text-champagne-dim">·</span>}
-                </span>
-              ))}
-            </p>
-          </Reveal>
-          <Reveal delay={0.2}>
-            <div className="mt-8">
-              <WhatsAppButton message={WA_MESSAGES.moda}>Explorar moda</WhatsAppButton>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-
-      <div className="mx-auto flex max-w-[90rem] items-end justify-between px-5 pt-8 sm:px-8">
-        <p className="text-[11px] tracking-label uppercase text-ivory-dim/70">
-          {STRIP.length} piezas — la colección completa
-        </p>
-        <div className="hidden gap-3 sm:flex">
-          <button
-            type="button"
-            onClick={() => scrollBy(-1)}
-            aria-label="Anterior"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-ivory/20 text-ivory transition-colors hover:border-champagne hover:text-champagne-bright"
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollBy(1)}
-            aria-label="Siguiente"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-ivory/20 text-ivory transition-colors hover:border-champagne hover:text-champagne-bright"
-          >
-            →
-          </button>
-        </div>
-      </div>
-
-      <div
-        ref={scrollerRef}
-        className="flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 py-6 sm:gap-4 sm:px-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {STRIP.map((item) => (
-          <div
-            key={item.id}
-            className="group relative w-[58vw] shrink-0 snap-start overflow-hidden rounded-sm bg-ink sm:w-[19rem]"
-          >
-            <div className="aspect-[4/5] w-full overflow-hidden">
+        {/* Feature strip — asymmetric, photo + living video side by side */}
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:mt-20 sm:grid-cols-5 sm:gap-5">
+          <Reveal className="sm:col-span-3">
+            <div className="relative h-[46vh] overflow-hidden rounded-sm sm:h-[68vh]">
               <img
-                src={item.image}
-                alt={item.name}
+                src={FEATURE.image}
+                alt="Campaña Vie-Riche"
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                className="h-full w-full object-cover"
               />
-            </div>
-            {item.tag && (
-              <span className="absolute left-3 top-3 rounded-full bg-ink/80 px-2.5 py-1 text-[9px] tracking-label uppercase text-champagne-bright">
-                {item.tag}
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+              <span className="absolute bottom-4 left-4 text-[10px] tracking-label uppercase text-ivory/80">
+                Vie-Riche · Campaña
               </span>
-            )}
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/90 to-transparent p-4">
-              <p className="truncate text-xs text-ivory">{item.name}</p>
+            </div>
+          </Reveal>
+          <Reveal delay={0.12} className="sm:col-span-2">
+            <div className="relative h-[32vh] overflow-hidden rounded-sm sm:h-[68vh]">
+              <LazyVideo clip={CLIPS.modaGraffitiWalk} className="h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
+            </div>
+          </Reveal>
+        </div>
+
+        {/* Editorial masonry — orientation-driven, not a uniform grid */}
+        <div className="mt-5 columns-2 gap-4 sm:mt-6 sm:columns-3 sm:gap-5 lg:columns-4">
+          {MASONRY.map((plate, i) => (
+            <Reveal key={plate.id} delay={(i % 4) * 0.05} className="mb-4 break-inside-avoid sm:mb-5">
+              <div className="group relative overflow-hidden rounded-sm">
+                <img
+                  src={plate.image}
+                  alt="Campaña Vie-Riche"
+                  loading="lazy"
+                  className="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              </div>
+            </Reveal>
+          ))}
+
+          <Reveal className="mb-4 break-inside-avoid sm:mb-5">
+            <div className="relative overflow-hidden rounded-sm">
+              <LazyVideo clip={CLIPS.modaStoneSit} className="w-full object-cover" />
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="mt-14 flex flex-col items-start justify-between gap-8 border-t border-champagne-dim/15 pt-10 sm:flex-row sm:items-end">
+          <div>
+            <p className="text-[11px] tracking-label uppercase text-champagne">Casas representadas</p>
+            <div className="mt-3 max-w-md">
+              <Marquee items={CATEGORY.brands} className="text-sm tracking-label uppercase text-ivory-dim/70" speed="slow" />
             </div>
           </div>
-        ))}
+          <a
+            href="#archivo"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full border border-champagne/50 px-7 py-3.5 font-sans text-xs tracking-label uppercase text-ivory transition-colors duration-300 hover:border-champagne hover:bg-champagne/10"
+          >
+            Explorar Moda
+          </a>
+        </div>
       </div>
     </section>
   )

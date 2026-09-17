@@ -1,65 +1,70 @@
 import glassesGoldClear from '../assets/glasses/sunglasses-gold-clear.webp'
-import { WA_MESSAGES } from '../data/brand'
+import glassesBraid from '../assets/glasses/sunglasses-clear-braid.webp'
+import glassesViolet from '../assets/glasses/sunglasses-violet.webp'
+import glassesDetail from '../assets/glasses/sunglasses-detail.webp'
+import { CATEGORIES, WA_MESSAGES } from '../data/brand'
 import { Reveal } from './Reveal'
+import { ChapterMark } from './ui/ChapterMark'
+import { Marquee } from './ui/Marquee'
 import { WhatsAppButton } from './ui/WhatsAppButton'
 
-const BRANDS = [
-  'Miu Miu',
-  'Oakley',
-  'Dolce & Gabbana',
-  'Alexander McQueen',
-  'Armani Exchange',
-  'Bottega Veneta',
-  'Cartier',
-  'Dior',
-  'Gucci',
-  'Prada',
-]
+const CATEGORY = CATEGORIES[2]
 
 export function LentesEditorial() {
   return (
-    <section id="lentes" className="relative overflow-hidden bg-ivory py-24 sm:py-32">
-      <div className="mx-auto grid max-w-[90rem] grid-cols-1 items-center gap-10 px-5 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-4">
-        <Reveal>
-          <span className="text-[11px] tracking-label uppercase text-champagne-deep">The Frame</span>
-          <h2 className="mt-4 font-serif text-4xl leading-[0.98] text-ink sm:text-6xl">
-            Lentes de casas reconocidas internacionalmente.
-          </h2>
-          <p className="mt-6 max-w-sm text-sm leading-relaxed text-ink/60">
-            Selección fina de gafas de sol y monturas de firmas de mayor renombre.
-          </p>
-          <div className="mt-8">
-            <WhatsAppButton
-              message={WA_MESSAGES.lentes}
-              variant="outline"
-              className="!border-ink/30 !text-ink hover:!border-champagne-deep hover:!text-champagne-deep"
-            >
-              Consultar lentes
-            </WhatsAppButton>
-          </div>
-        </Reveal>
+    <section id="lentes" className="relative overflow-hidden bg-paper py-24 sm:py-32">
+      <div className="mx-auto max-w-[92rem] px-5 sm:px-8">
+        <ChapterMark number={CATEGORY.number} kicker={CATEGORY.kicker} title={CATEGORY.title} tone="dark" />
 
-        <Reveal delay={0.15}>
-          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm">
-            <img
-              src={glassesGoldClear}
-              alt="Lentes de lujo — Meghan Luxury"
-              loading="lazy"
-              className="h-full w-full scale-105 object-contain transition-transform duration-[1.4s] ease-out hover:scale-110"
-            />
-          </div>
-        </Reveal>
+        <div className="relative mt-14 sm:mt-6">
+          <Reveal delay={0.1} className="relative mx-auto w-full max-w-3xl lg:ml-auto lg:mr-[4%]">
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-sm bg-paper-dim">
+              <img
+                src={glassesViolet}
+                alt="Lentes de lujo — Meghan Luxury"
+                loading="lazy"
+                className="h-full w-full animate-soft-drift object-contain p-6"
+              />
+            </div>
+          </Reveal>
+
+          <Reveal
+            delay={0.3}
+            className="absolute -left-2 top-[8%] hidden w-28 rotate-[-4deg] overflow-hidden rounded-sm border border-ink/10 bg-ivory shadow-xl sm:block lg:w-36"
+          >
+            <img src={glassesBraid} alt="Montura trenzada" loading="lazy" className="aspect-square w-full object-contain p-3" />
+          </Reveal>
+          <Reveal
+            delay={0.4}
+            className="absolute -right-2 bottom-[6%] hidden w-24 rotate-[3deg] overflow-hidden rounded-sm border border-ink/10 bg-ivory shadow-xl sm:right-[2%] sm:block lg:w-32"
+          >
+            <img src={glassesGoldClear} alt="Montura dorada" loading="lazy" className="aspect-square w-full object-contain p-3" />
+          </Reveal>
+          <Reveal
+            delay={0.5}
+            className="absolute left-[6%] -bottom-4 hidden w-20 rotate-[2deg] overflow-hidden rounded-sm border border-ink/10 bg-ivory shadow-xl md:block"
+          >
+            <img src={glassesDetail} alt="Detalle de bisagra" loading="lazy" className="aspect-square w-full object-contain p-3" />
+          </Reveal>
+
+          <Reveal delay={0.2} className="relative mt-10 max-w-md lg:absolute lg:left-0 lg:top-1/2 lg:mt-0 lg:-translate-y-1/2">
+            <p className="text-sm leading-relaxed text-ink/60 text-balance">{CATEGORY.description}</p>
+            <div className="mt-7">
+              <WhatsAppButton
+                message={WA_MESSAGES.lentes}
+                variant="outline"
+                className="!border-ink/30 !text-ink hover:!border-champagne-deep hover:!text-champagne-deep"
+              >
+                Consultar lentes
+              </WhatsAppButton>
+            </div>
+          </Reveal>
+        </div>
       </div>
 
-      <Reveal delay={0.25}>
-        <div className="mt-16 overflow-hidden border-t border-ink/10 py-6">
-          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 px-5 text-center">
-            {BRANDS.map((b) => (
-              <span key={b} className="text-[11px] tracking-label uppercase text-ink/60">
-                {b}
-              </span>
-            ))}
-          </div>
+      <Reveal delay={0.3}>
+        <div className="mt-20 border-t border-ink/10 py-6">
+          <Marquee items={CATEGORY.brands} className="text-sm tracking-label uppercase text-ink/50" />
         </div>
       </Reveal>
     </section>

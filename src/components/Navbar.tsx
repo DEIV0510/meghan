@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import logo from '../assets/brand/logo-gold.png'
-import { WA_MESSAGES } from '../data/brand'
+import { BRAND, WA_MESSAGES } from '../data/brand'
 import { GoldStar } from './ui/GoldStar'
 import { WhatsAppButton } from './ui/WhatsAppButton'
 
@@ -10,9 +9,19 @@ const LINKS = [
   { href: '#mundos', label: 'Colecciones' },
   { href: '#perfumeria', label: 'Perfumería' },
   { href: '#moda', label: 'Moda' },
+  { href: '#lentes', label: 'Accesorios' },
   { href: '#showroom', label: 'Showroom' },
   { href: '#contacto', label: 'Contacto' },
 ]
+
+function Wordmark({ className = '' }: { className?: string }) {
+  return (
+    <span className={`flex items-center gap-2 ${className}`}>
+      <GoldStar className="h-3.5 w-3.5 text-champagne" />
+      <span className="font-serif text-lg tracking-wordmark text-ivory">MEGHAN</span>
+    </span>
+  )
+}
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -40,7 +49,7 @@ export function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-ink/85 backdrop-blur-md' : 'bg-transparent'
+        scrolled ? 'border-b border-champagne-dim/15 bg-ink/85 backdrop-blur-md' : 'bg-transparent'
       }`}
     >
       <div className="h-px w-full bg-champagne-dim/10">
@@ -48,8 +57,8 @@ export function Navbar() {
       </div>
 
       <nav className="mx-auto flex max-w-[90rem] items-center justify-between px-5 py-4 sm:px-8 sm:py-5">
-        <a href="#inicio" className="flex items-center gap-2 shrink-0">
-          <img src={logo} alt="Meghan Luxury" className="h-8 w-auto sm:h-9" />
+        <a href="#inicio" className="shrink-0">
+          <Wordmark />
         </a>
 
         <ul className="hidden lg:flex items-center gap-9">
@@ -75,6 +84,7 @@ export function Navbar() {
           type="button"
           onClick={() => setMenuOpen(true)}
           aria-label="Abrir menú"
+          aria-expanded={menuOpen}
           className="lg:hidden flex flex-col items-end gap-1.5 p-2"
         >
           <span className="h-px w-7 bg-ivory" />
@@ -91,9 +101,11 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
+            role="dialog"
+            aria-modal="true"
           >
             <div className="flex items-center justify-between px-5 py-4">
-              <img src={logo} alt="Meghan Luxury" className="h-8 w-auto" />
+              <Wordmark />
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}
@@ -104,7 +116,7 @@ export function Navbar() {
               </button>
             </div>
 
-            <div className="flex flex-1 flex-col items-center justify-center gap-8">
+            <div className="flex flex-1 flex-col items-center justify-center gap-7 px-6">
               {LINKS.map((link, i) => (
                 <motion.a
                   key={link.href}
@@ -113,7 +125,7 @@ export function Navbar() {
                   className="font-serif text-3xl text-ivory hover:text-champagne-bright transition-colors"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 * i, duration: 0.4 }}
+                  transition={{ delay: 0.06 * i, duration: 0.4 }}
                 >
                   {link.label}
                 </motion.a>
@@ -122,11 +134,18 @@ export function Navbar() {
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.08 * LINKS.length, duration: 0.4 }}
-                className="mt-4 flex items-center gap-2 text-champagne"
+                transition={{ delay: 0.06 * LINKS.length, duration: 0.4 }}
+                className="mt-4 flex flex-col items-center gap-5"
               >
-                <GoldStar className="h-3 w-3" />
                 <WhatsAppButton message={WA_MESSAGES.general}>Consultar por WhatsApp</WhatsAppButton>
+                <a
+                  href={BRAND.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] tracking-label uppercase text-ivory-dim hover:text-champagne-bright transition-colors"
+                >
+                  {BRAND.instagramHandle}
+                </a>
               </motion.div>
             </div>
           </motion.div>

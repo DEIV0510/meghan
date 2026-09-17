@@ -1,4 +1,3 @@
-import logo from '../assets/brand/logo-gold.png'
 import { BRAND } from '../data/brand'
 import { GoldStar } from './ui/GoldStar'
 
@@ -7,6 +6,7 @@ const LINKS = [
   { href: '#mundos', label: 'Colecciones' },
   { href: '#perfumeria', label: 'Perfumería' },
   { href: '#moda', label: 'Moda' },
+  { href: '#lentes', label: 'Accesorios' },
   { href: '#showroom', label: 'Showroom' },
   { href: '#contacto', label: 'Contacto' },
 ]
@@ -17,7 +17,10 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="flex flex-col items-center gap-10 text-center lg:flex-row lg:items-start lg:justify-between lg:text-left">
           <div className="flex flex-col items-center lg:items-start">
-            <img src={logo} alt="Meghan Luxury" className="h-8 w-auto" />
+            <span className="flex items-center gap-2">
+              <GoldStar className="h-3.5 w-3.5 text-champagne" />
+              <span className="font-serif text-lg tracking-wordmark text-ivory">MEGHAN</span>
+            </span>
             <p className="mt-4 text-sm text-ivory-dim">Luxury Boutique.</p>
             <p className="mt-1 text-sm text-ivory-dim">
               {BRAND.city}, {BRAND.region}
@@ -63,6 +66,10 @@ export function Footer() {
           </div>
           <p className="text-[11px] tracking-label uppercase text-ivory-dim/60">
             Luxury · Authenticity · Evolution
+          </p>
+          <p className="max-w-lg text-[11px] leading-relaxed text-ivory-dim/40 text-balance">
+            Las marcas mencionadas forman parte del portafolio de curaduría de Meghan Luxury y se citan
+            como referencia de producto, no como representación oficial de dichas casas.
           </p>
           <p className="text-xs text-ivory-dim/40">
             © {new Date().getFullYear()} Meghan Luxury. Todos los derechos reservados.

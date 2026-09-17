@@ -1,4 +1,4 @@
-import blackoudAbyss from '../assets/perfume/blackoud-abyss.webp'
+import suvInteriorNeon from '../assets/campaign/suv-interior-neon.webp'
 import { BRAND, WA_MESSAGES } from '../data/brand'
 import { Reveal } from './Reveal'
 import { GoldStar } from './ui/GoldStar'
@@ -7,9 +7,9 @@ import { WhatsAppButton } from './ui/WhatsAppButton'
 export function FinalCTA() {
   return (
     <section id="contacto" className="relative overflow-hidden bg-ink py-32 sm:py-40">
-      <div className="pointer-events-none absolute inset-0 opacity-25">
-        <img src={blackoudAbyss} alt="" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-ink/80" />
+      <div className="pointer-events-none absolute inset-0 opacity-20">
+        <img src={suvInteriorNeon} alt="" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-ink/85" />
       </div>
 
       <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
