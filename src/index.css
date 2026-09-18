@@ -4,14 +4,24 @@
   --font-serif: 'Fraunces', 'Times New Roman', serif;
   --font-sans: 'Jost', 'Segoe UI', sans-serif;
 
+  /* Dark surfaces — reserved for special/contrast sections, no longer the default. */
   --color-ink: #0a0a09;
   --color-ink-soft: #131210;
   --color-graphite: #1c1a17;
   --color-graphite-light: #2b2723;
-  --color-ivory: #f3eee1;
+
+  /* Light surfaces — the dominant palette. */
+  --color-snow: #ffffff;
+  --color-ivory: #f8f4ea;
   --color-ivory-dim: #d6cfba;
-  --color-paper: #ece6d6;
-  --color-paper-dim: #ddd4bc;
+  --color-paper: #f1ead9;
+  --color-paper-dim: #e3d8c0;
+
+  /* Text on light. */
+  --color-charcoal: #3d382f;
+  --color-stone: #8c8474;
+
+  /* Accent — used sparingly. */
   --color-champagne: #c6a568;
   --color-champagne-bright: #e3c688;
   --color-champagne-dim: #8a7550;
@@ -40,8 +50,8 @@
 
   body {
     margin: 0;
-    background-color: var(--color-ink);
-    color: var(--color-ivory);
+    background-color: var(--color-snow);
+    color: var(--color-charcoal);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

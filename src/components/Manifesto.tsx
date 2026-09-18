@@ -1,12 +1,12 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import blackoudAbyss from '../assets/perfume/blackoud-abyss.webp'
-import { CATEGORIES, MANIFESTO } from '../data/brand'
+import { MANIFESTO } from '../data/brand'
 
 export function Manifesto() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section id="mundos" className="relative flex min-h-[85svh] flex-col items-center justify-center overflow-hidden bg-ink py-24">
+    <section className="relative flex min-h-[52svh] flex-col items-center justify-center overflow-hidden bg-ink py-20">
       <div className="absolute inset-0">
         <img
           src={blackoudAbyss}
@@ -50,37 +50,7 @@ export function Manifesto() {
         >
           {MANIFESTO.lead}
         </motion.p>
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 1.05, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-4 max-w-lg text-sm leading-relaxed text-ivory-dim/70 text-balance"
-        >
-          {MANIFESTO.body}
-        </motion.p>
       </div>
-
-      <motion.nav
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 1.3, duration: 0.8 }}
-        className="relative mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 px-5"
-        aria-label="Colecciones"
-      >
-        {CATEGORIES.map((cat) => (
-          <a
-            key={cat.key}
-            href={`#${cat.key}`}
-            className="group flex items-baseline gap-2 text-ivory-dim transition-colors hover:text-champagne-bright"
-          >
-            <span className="font-display-number text-sm text-champagne/60">{cat.number}</span>
-            <span className="text-xs tracking-label uppercase">{cat.title}</span>
-            <span className="h-px w-0 bg-champagne transition-all duration-300 group-hover:w-4" />
-          </a>
-        ))}
-      </motion.nav>
     </section>
   )
 }

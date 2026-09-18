@@ -42,7 +42,7 @@ import glassesSimpleGold from '../assets/glasses/sunglasses-simple-gold.webp'
 import glassesViolet from '../assets/glasses/sunglasses-violet.webp'
 import glassesDetail from '../assets/glasses/sunglasses-detail.webp'
 
-// Shoes — marcas identificadas directamente en el producto fotografiado
+// Shoes — mismo par fotografiado desde distintos ángulos, consolidado en un producto c/u
 import shoeOffwhiteTop from '../assets/shoes/sneaker-offwhite-top.webp'
 import shoeOffwhiteSole from '../assets/shoes/sneaker-offwhite-sole.webp'
 import shoeOffwhiteProfile from '../assets/shoes/sneaker-offwhite-profile.webp'
@@ -120,100 +120,110 @@ import showroomEntrance from '../assets/showroom/render-05-entrance.webp'
 
 export interface Product {
   id: string
+  brand?: string
   name: string
-  image: string
+  /** First image is the primary/card image; remaining are extra angles for the product detail view. */
+  images: string[]
   category: CategoryKey | 'gorras'
   tag?: string
+  /** COP. Undefined = no confirmed price yet → UI shows "Consultar precio". Never invent a number here. */
+  price?: number
+  isNew?: boolean
 }
 
 export const PERFUMES: Product[] = [
-  { id: 'creed-aventus', name: 'Creed · Aventus', image: creedAventus, category: 'perfumeria', tag: 'Icónico' },
-  { id: 'blackoud-abyss', name: 'Blackoud · Abyss', image: blackoudAbyss, category: 'perfumeria' },
-  { id: 'bond-tribeca', name: 'Bond No. 9 · TriBeCa', image: bondTribeca, category: 'perfumeria' },
-  { id: 'creed-silver', name: 'Creed · Silver Mountain Water', image: creedSilver, category: 'perfumeria' },
-  { id: 'le-labo-santal', name: 'Le Labo · Santal 33', image: leLaboSantal, category: 'perfumeria', tag: 'Culto' },
-  { id: 'le-labo-bergamote', name: 'Le Labo · Bergamote 22', image: leLaboBergamote, category: 'perfumeria' },
-  { id: 'le-labo-another', name: 'Le Labo · Another 13', image: leLaboAnother, category: 'perfumeria' },
-  { id: 'valentino-roma', name: 'Valentino · Born in Roma Intense', image: valentinoRoma, category: 'perfumeria' },
-  { id: 'ch-black', name: 'Carolina Herrera · 212 VIP Black', image: chBlack, category: 'perfumeria' },
-  { id: 'montale-sensual', name: 'Montale Paris · Sensual Instinct', image: montaleSensual, category: 'perfumeria' },
-  { id: 'blackoud-opulent', name: 'Blackoud · Opulent', image: blackoudOpulent, category: 'perfumeria' },
-  { id: 'armaf-club-nuit', name: 'Armaf · Club de Nuit Intense', image: armafClubDeNuit, category: 'perfumeria' },
-  { id: 'armaf-sillage', name: 'Armaf · Club de Nuit Sillage', image: armafSillage, category: 'perfumeria' },
-  { id: 'armaf-yum-yum', name: 'Armaf · Yum Yum', image: armafYumYum, category: 'perfumeria' },
-  { id: 'zakat-fire', name: 'Zakat · You Are My Fire', image: zakatFire, category: 'perfumeria' },
-  { id: 'zakat-red', name: 'Zakat · Colección Mosaico', image: zakatRed, category: 'perfumeria' },
-  { id: 'zakat-25', name: 'Zakat · 25', image: zakat25, category: 'perfumeria' },
-  { id: 'lattafa-yara', name: 'Lattafa · Yara', image: lattafaYara, category: 'perfumeria' },
-  { id: 'odyssey-mandarin', name: 'Odyssey · Mandarin', image: odysseyMandarin, category: 'perfumeria' },
-  { id: 'fugazzi-pomegranoudh', name: 'Fugazzi · Pomegranoudh', image: fugazziPomegranoudh, category: 'perfumeria' },
-  { id: 'fugazzi-sugar-daddy', name: 'Fugazzi · Sugar Daddy', image: fugazziSugarDaddy, category: 'perfumeria' },
+  { id: 'creed-aventus', brand: 'Creed', name: 'Aventus', images: [creedAventus], category: 'perfumeria', tag: 'Icónico', isNew: true },
+  { id: 'blackoud-abyss', brand: 'Blackoud', name: 'Abyss', images: [blackoudAbyss], category: 'perfumeria' },
+  { id: 'bond-tribeca', brand: 'Bond No. 9', name: 'TriBeCa', images: [bondTribeca], category: 'perfumeria' },
+  { id: 'creed-silver', brand: 'Creed', name: 'Silver Mountain Water', images: [creedSilver], category: 'perfumeria' },
+  { id: 'le-labo-santal', brand: 'Le Labo', name: 'Santal 33', images: [leLaboSantal], category: 'perfumeria', tag: 'Culto', isNew: true },
+  { id: 'le-labo-bergamote', brand: 'Le Labo', name: 'Bergamote 22', images: [leLaboBergamote], category: 'perfumeria' },
+  { id: 'le-labo-another', brand: 'Le Labo', name: 'Another 13', images: [leLaboAnother], category: 'perfumeria' },
+  { id: 'valentino-roma', brand: 'Valentino', name: 'Born in Roma Intense', images: [valentinoRoma], category: 'perfumeria' },
+  { id: 'ch-black', brand: 'Carolina Herrera', name: '212 VIP Black', images: [chBlack], category: 'perfumeria' },
+  { id: 'montale-sensual', brand: 'Montale Paris', name: 'Sensual Instinct', images: [montaleSensual], category: 'perfumeria' },
+  { id: 'blackoud-opulent', brand: 'Blackoud', name: 'Opulent', images: [blackoudOpulent], category: 'perfumeria' },
+  { id: 'armaf-club-nuit', brand: 'Armaf', name: 'Club de Nuit Intense', images: [armafClubDeNuit], category: 'perfumeria' },
+  { id: 'armaf-sillage', brand: 'Armaf', name: 'Club de Nuit Sillage', images: [armafSillage], category: 'perfumeria' },
+  { id: 'armaf-yum-yum', brand: 'Armaf', name: 'Yum Yum', images: [armafYumYum], category: 'perfumeria' },
+  { id: 'zakat-fire', brand: 'Zakat', name: 'You Are My Fire', images: [zakatFire], category: 'perfumeria' },
+  { id: 'zakat-red', brand: 'Zakat', name: 'Colección Mosaico', images: [zakatRed], category: 'perfumeria', isNew: true },
+  { id: 'zakat-25', brand: 'Zakat', name: '25', images: [zakat25], category: 'perfumeria' },
+  { id: 'lattafa-yara', brand: 'Lattafa', name: 'Yara', images: [lattafaYara], category: 'perfumeria' },
+  { id: 'odyssey-mandarin', brand: 'Odyssey', name: 'Mandarin', images: [odysseyMandarin], category: 'perfumeria' },
+  { id: 'fugazzi-pomegranoudh', brand: 'Fugazzi', name: 'Pomegranoudh', images: [fugazziPomegranoudh], category: 'perfumeria' },
+  { id: 'fugazzi-sugar-daddy', brand: 'Fugazzi', name: 'Sugar Daddy', images: [fugazziSugarDaddy], category: 'perfumeria' },
 ]
 
 export const CAPS: Product[] = [
-  { id: 'cap-black', name: 'Dom Apparel · Nomad Luxe', image: capBlack, category: 'gorras', tag: 'Dom Apparel' },
-  { id: 'cap-maison', name: 'Dom Apparel · Maison Éminence', image: capMaison, category: 'gorras', tag: 'Dom Apparel' },
-  { id: 'cap-gold', name: 'Dom Apparel · Gold', image: capGold, category: 'gorras', tag: 'Dom Apparel' },
-  { id: 'cap-gothic', name: 'Dom Apparel · Gothic D', image: capGothic, category: 'gorras', tag: 'Dom Apparel' },
-  { id: 'cap-white-red', name: 'Dom Apparel · White/Red', image: capWhiteRed, category: 'gorras', tag: 'Dom Apparel' },
-  { id: 'cap-blackout', name: 'Dom Apparel · Blackout', image: capBlackout, category: 'gorras', tag: 'Dom Apparel' },
-  { id: 'cap-blue-white', name: 'Dom Apparel · Blue/White', image: capBlueWhite, category: 'gorras', tag: 'Dom Apparel' },
-  { id: 'cap-1997', name: 'Dom Apparel · 1997', image: cap1997, category: 'gorras', tag: 'Dom Apparel' },
+  { id: 'cap-black', brand: 'Dom Apparel', name: 'Nomad Luxe', images: [capBlack], category: 'gorras' },
+  { id: 'cap-maison', brand: 'Dom Apparel', name: 'Maison Éminence', images: [capMaison], category: 'gorras' },
+  { id: 'cap-gold', brand: 'Dom Apparel', name: 'Gold', images: [capGold], category: 'gorras', isNew: true },
+  { id: 'cap-gothic', brand: 'Dom Apparel', name: 'Gothic D', images: [capGothic], category: 'gorras' },
+  { id: 'cap-white-red', brand: 'Dom Apparel', name: 'White/Red', images: [capWhiteRed], category: 'gorras' },
+  { id: 'cap-blackout', brand: 'Dom Apparel', name: 'Blackout', images: [capBlackout], category: 'gorras' },
+  { id: 'cap-blue-white', brand: 'Dom Apparel', name: 'Blue/White', images: [capBlueWhite], category: 'gorras' },
+  { id: 'cap-1997', brand: 'Dom Apparel', name: '1997', images: [cap1997], category: 'gorras' },
 ]
 
 export const GLASSES: Product[] = [
-  { id: 'glasses-gold-blue', name: 'Montura dorada · Cristal azul', image: glassesGoldBlue, category: 'lentes' },
-  { id: 'glasses-gold-clear', name: 'Montura dorada · Cristal', image: glassesGoldClear, category: 'lentes' },
-  { id: 'glasses-navy', name: 'Montura dorada · Navy', image: glassesNavy, category: 'lentes' },
-  { id: 'glasses-braid', name: 'Montura trenzada · Cristal', image: glassesBraid, category: 'lentes' },
-  { id: 'glasses-simple-gold', name: 'Montura dorada · Clásica', image: glassesSimpleGold, category: 'lentes' },
-  { id: 'glasses-violet', name: 'Montura facetada · Violeta', image: glassesViolet, category: 'lentes' },
-  { id: 'glasses-detail', name: 'Detalle de bisagra', image: glassesDetail, category: 'lentes' },
+  { id: 'glasses-gold-blue', name: 'Montura dorada · Cristal azul', images: [glassesGoldBlue], category: 'lentes' },
+  { id: 'glasses-gold-clear', name: 'Montura dorada · Cristal', images: [glassesGoldClear], category: 'lentes' },
+  { id: 'glasses-navy', name: 'Montura dorada · Navy', images: [glassesNavy], category: 'lentes' },
+  { id: 'glasses-braid', name: 'Montura trenzada · Cristal', images: [glassesBraid], category: 'lentes' },
+  { id: 'glasses-simple-gold', name: 'Montura dorada · Clásica', images: [glassesSimpleGold], category: 'lentes' },
+  { id: 'glasses-violet', name: 'Montura facetada · Violeta', images: [glassesViolet], category: 'lentes', isNew: true },
+  { id: 'glasses-detail', name: 'Detalle de bisagra', images: [glassesDetail], category: 'lentes' },
 ]
 
 export const SHOES: Product[] = [
-  { id: 'shoe-offwhite-top', name: 'Off-White · Trail Runner', image: shoeOffwhiteTop, category: 'calzado', tag: 'Off-White' },
-  { id: 'shoe-offwhite-sole', name: 'Off-White · Trail Runner', image: shoeOffwhiteSole, category: 'calzado', tag: 'Off-White' },
-  { id: 'shoe-offwhite-profile', name: 'Off-White · Trail Runner', image: shoeOffwhiteProfile, category: 'calzado', tag: 'Off-White' },
-  { id: 'shoe-karl-back', name: 'Karl Lagerfeld · Sneaker', image: shoeKarlBack, category: 'calzado', tag: 'Karl Lagerfeld' },
-  { id: 'shoe-karl-top', name: 'Karl Lagerfeld · Sneaker', image: shoeKarlTop, category: 'calzado', tag: 'Karl Lagerfeld' },
-  { id: 'shoe-karl-angle', name: 'Karl Lagerfeld · Sneaker', image: shoeKarlAngle, category: 'calzado', tag: 'Karl Lagerfeld' },
+  {
+    id: 'shoe-offwhite',
+    brand: 'Off-White',
+    name: 'Trail Runner',
+    images: [shoeOffwhiteTop, shoeOffwhiteProfile, shoeOffwhiteSole],
+    category: 'calzado',
+    isNew: true,
+  },
+  {
+    id: 'shoe-karl',
+    brand: 'Karl Lagerfeld',
+    name: 'Sneaker Cuero',
+    images: [shoeKarlAngle, shoeKarlTop, shoeKarlBack],
+    category: 'calzado',
+    isNew: true,
+  },
 ]
 
 export const APPAREL: Product[] = [
-  { id: 'tracksuit-black-red', name: 'Vie-Riche · Tracksuit Black/Red', image: tracksuitBlackRed, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'tracksuit-navy-orange', name: 'Vie-Riche · Tracksuit Navy/Orange', image: tracksuitNavyOrange, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'tracksuit-burgundy', name: 'Vie-Riche · Tracksuit Burgundy', image: tracksuitBurgundy, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'set-black-white', name: 'Vie-Riche · Set Black/White', image: setBlackWhite, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'set-grey-pink-front', name: 'Vie-Riche · Set Grey/Pink', image: setGreyPinkFront, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'set-grey-pink-back', name: 'Vie-Riche · Set Grey/Pink', image: setGreyPinkBack, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'set-green-front', name: 'Vie-Riche · Set Green', image: setGreenFront, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'set-green-back', name: 'Vie-Riche · Set Green', image: setGreenBack, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'set-blue-pink-front', name: 'Vie-Riche · Set Blue/Pink', image: setBluePinkFront, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'set-blue-pink-back', name: 'Vie-Riche · Set Blue/Pink', image: setBluePinkBack, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'track-lightblue-back', name: 'Vie-Riche · Track Light Blue', image: trackLightblueBack, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'track-teal-a', name: 'Vie-Riche · Track Teal', image: trackTealA, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'track-teal-b', name: 'Vie-Riche · Track Teal', image: trackTealB, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'track-grey-back', name: 'Vie-Riche · Track Grey', image: trackGreyBack, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'track-grey-front', name: 'Vie-Riche · Track Grey', image: trackGreyFront, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'camp-shirt-teal', name: 'Vie-Riche · Camp Shirt Teal', image: campShirtTeal, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'set-flatlay-teal', name: 'Vie-Riche · Set Teal', image: setFlatlayTeal, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'set-flatlay-beige', name: 'Vie-Riche · Set Beige', image: setFlatlayBeige, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'jacket-green', name: 'Vie-Riche · Jacket Green', image: jacketGreen, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'jacket-navy', name: 'Vie-Riche · Jacket Navy', image: jacketNavy, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'jacket-red', name: 'Vie-Riche · Jacket Red', image: jacketRed, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'tee-flatlay', name: 'Vie-Riche · Tee', image: teeFlatlay, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'jersey-black-red', name: 'Vie-Riche · Jersey Black/Red', image: jerseyBlackRed, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'polo-wing-graphic', name: 'Vie-Riche · Polo Estate', image: poloWingGraphic, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'jersey-white-blue', name: 'Vie-Riche · Jersey White/Blue', image: jerseyWhiteBlue, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'polo-blue-pink', name: 'Vie-Riche · Polo Blue/Pink', image: poloBluePink, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'polo-blue-riche', name: 'Vie-Riche · Polo Riche', image: poloBlueRiche, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'track-black-white', name: 'Vie-Riche · Track Black/White', image: trackBlackWhite, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'track-black-crest', name: 'Vie-Riche · Track Crest', image: trackBlackCrest, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'track-grey-pink', name: 'Vie-Riche · Track Grey/Pink', image: trackGreyPink, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'track-grey-pink-back', name: 'Vie-Riche · Track Grey/Pink', image: trackGreyPinkBack, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'jersey-navy-crest-back', name: 'Vie-Riche · Jersey Crest', image: jerseyNavyCrestBack, category: 'moda', tag: 'Vie-Riche' },
-  { id: 'jersey-navy-prolific', name: 'Vie-Riche · Jersey Prolific', image: jerseyNavyProlificFront, category: 'moda', tag: 'Vie-Riche' },
+  { id: 'tracksuit-black-red', brand: 'Vie-Riche', name: 'Tracksuit Black/Red', images: [tracksuitBlackRed], category: 'moda', isNew: true },
+  { id: 'tracksuit-navy-orange', brand: 'Vie-Riche', name: 'Tracksuit Navy/Orange', images: [tracksuitNavyOrange], category: 'moda' },
+  { id: 'tracksuit-burgundy', brand: 'Vie-Riche', name: 'Tracksuit Burgundy', images: [tracksuitBurgundy], category: 'moda' },
+  { id: 'set-black-white', brand: 'Vie-Riche', name: 'Set Black/White', images: [setBlackWhite], category: 'moda' },
+  { id: 'set-grey-pink', brand: 'Vie-Riche', name: 'Set Grey/Pink', images: [setGreyPinkFront, setGreyPinkBack], category: 'moda' },
+  { id: 'set-green', brand: 'Vie-Riche', name: 'Set Green', images: [setGreenFront, setGreenBack], category: 'moda' },
+  { id: 'set-blue-pink', brand: 'Vie-Riche', name: 'Set Blue/Pink', images: [setBluePinkFront, setBluePinkBack], category: 'moda' },
+  { id: 'track-lightblue', brand: 'Vie-Riche', name: 'Track Light Blue', images: [trackLightblueBack], category: 'moda' },
+  { id: 'track-teal-a', brand: 'Vie-Riche', name: 'Track Teal', images: [trackTealA], category: 'moda' },
+  { id: 'track-teal-b', brand: 'Vie-Riche', name: 'Track Teal II', images: [trackTealB], category: 'moda' },
+  { id: 'track-grey', brand: 'Vie-Riche', name: 'Track Grey', images: [trackGreyFront, trackGreyBack], category: 'moda' },
+  { id: 'camp-shirt-teal', brand: 'Vie-Riche', name: 'Camp Shirt Teal', images: [campShirtTeal], category: 'moda' },
+  { id: 'set-flatlay-teal', brand: 'Vie-Riche', name: 'Set Teal', images: [setFlatlayTeal], category: 'moda' },
+  { id: 'set-flatlay-beige', brand: 'Vie-Riche', name: 'Set Beige', images: [setFlatlayBeige], category: 'moda' },
+  { id: 'jacket-green', brand: 'Vie-Riche', name: 'Jacket Green', images: [jacketGreen], category: 'moda' },
+  { id: 'jacket-navy', brand: 'Vie-Riche', name: 'Jacket Navy', images: [jacketNavy], category: 'moda' },
+  { id: 'jacket-red', brand: 'Vie-Riche', name: 'Jacket Red', images: [jacketRed], category: 'moda' },
+  { id: 'tee-flatlay', brand: 'Vie-Riche', name: 'Tee', images: [teeFlatlay], category: 'moda' },
+  { id: 'jersey-black-red', brand: 'Vie-Riche', name: 'Jersey Black/Red', images: [jerseyBlackRed], category: 'moda' },
+  { id: 'polo-wing-graphic', brand: 'Vie-Riche', name: 'Polo Estate', images: [poloWingGraphic], category: 'moda', isNew: true },
+  { id: 'jersey-white-blue', brand: 'Vie-Riche', name: 'Jersey White/Blue', images: [jerseyWhiteBlue], category: 'moda' },
+  { id: 'polo-blue-pink', brand: 'Vie-Riche', name: 'Polo Blue/Pink', images: [poloBluePink], category: 'moda' },
+  { id: 'polo-blue-riche', brand: 'Vie-Riche', name: 'Polo Riche', images: [poloBlueRiche], category: 'moda' },
+  { id: 'track-black-white', brand: 'Vie-Riche', name: 'Track Black/White', images: [trackBlackWhite], category: 'moda' },
+  { id: 'track-black-crest', brand: 'Vie-Riche', name: 'Track Crest', images: [trackBlackCrest], category: 'moda' },
+  { id: 'track-grey-pink', brand: 'Vie-Riche', name: 'Track Grey/Pink', images: [trackGreyPink, trackGreyPinkBack], category: 'moda' },
+  { id: 'jersey-navy-crest-back', brand: 'Vie-Riche', name: 'Jersey Crest', images: [jerseyNavyCrestBack], category: 'moda' },
+  { id: 'jersey-navy-prolific', brand: 'Vie-Riche', name: 'Jersey Prolific', images: [jerseyNavyProlificFront], category: 'moda', isNew: true },
 ]
 
 export interface CampaignPlate {
@@ -258,3 +268,9 @@ export const SHOWROOM_RENDERS = {
 }
 
 export const ALL_PRODUCTS: Product[] = [...PERFUMES, ...APPAREL, ...GLASSES, ...SHOES, ...CAPS]
+
+export const NEW_PRODUCTS: Product[] = ALL_PRODUCTS.filter((p) => p.isNew)
+
+export function productDisplayName(p: Product) {
+  return p.brand ? `${p.brand} · ${p.name}` : p.name
+}

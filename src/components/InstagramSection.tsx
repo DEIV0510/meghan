@@ -1,32 +1,36 @@
 import { BRAND } from '../data/brand'
-import { APPAREL, CAMPAIGN, CAPS, GLASSES, PERFUMES, SHOES } from '../data/products'
+import { APPAREL, CAMPAIGN, CAPS, GLASSES, PERFUMES, SHOES, productDisplayName, type Product } from '../data/products'
 import { Reveal } from './Reveal'
 import { GoldStar } from './ui/GoldStar'
 
-const ROW_A = [
-  CAMPAIGN[0],
-  PERFUMES[0],
-  APPAREL[0],
-  CAMPAIGN[2],
-  GLASSES[0],
-  SHOES[0],
-  CAMPAIGN[5],
-  PERFUMES[6],
-  CAPS[1],
-]
-const ROW_B = [
-  APPAREL[10],
-  CAMPAIGN[8],
-  SHOES[3],
-  PERFUMES[4],
-  CAMPAIGN[11],
-  CAPS[4],
-  GLASSES[3],
-  CAMPAIGN[3],
-  PERFUMES[12],
-]
-
 type RowItem = { id: string; image: string; name?: string }
+
+function fromProduct(p: Product): RowItem {
+  return { id: p.id, image: p.images[0], name: productDisplayName(p) }
+}
+
+const ROW_A: RowItem[] = [
+  CAMPAIGN[0],
+  fromProduct(PERFUMES[0]),
+  fromProduct(APPAREL[0]),
+  CAMPAIGN[2],
+  fromProduct(GLASSES[0]),
+  fromProduct(SHOES[0]),
+  CAMPAIGN[5],
+  fromProduct(PERFUMES[6]),
+  fromProduct(CAPS[1]),
+]
+const ROW_B: RowItem[] = [
+  fromProduct(APPAREL[10]),
+  CAMPAIGN[8],
+  fromProduct(SHOES[1]),
+  fromProduct(PERFUMES[4]),
+  CAMPAIGN[11],
+  fromProduct(CAPS[4]),
+  fromProduct(GLASSES[3]),
+  CAMPAIGN[3],
+  fromProduct(PERFUMES[12]),
+]
 
 function Row({ items, reverse, tall }: { items: RowItem[]; reverse?: boolean; tall?: boolean }) {
   const doubled = [...items, ...items]

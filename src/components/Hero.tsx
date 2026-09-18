@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion'
-import { BRAND, WA_MESSAGES } from '../data/brand'
+import { BRAND } from '../data/brand'
 import { CLIPS } from '../data/media'
 import { LazyVideo } from './ui/LazyVideo'
-import { WhatsAppButton } from './ui/WhatsAppButton'
 import { GoldStar } from './ui/GoldStar'
 
 export function Hero() {
@@ -75,7 +74,7 @@ export function Hero() {
           transition={{ duration: 0.9, delay: 0.6 }}
           className="max-w-xs text-balance font-sans text-sm text-ivory-dim sm:max-w-sm sm:text-base"
         >
-          El lujo comienza con una elección. Moda · Perfumería · Accesorios.
+          Una selección para quienes distinguen lo extraordinario.
         </motion.p>
 
         <motion.div
@@ -85,12 +84,17 @@ export function Hero() {
           className="mt-6 flex flex-wrap items-center gap-4"
         >
           <a
-            href="#mundos"
-            className="inline-flex items-center gap-2 rounded-full border border-ivory/25 px-7 py-3.5 font-sans text-xs tracking-label uppercase text-ivory transition-colors duration-300 hover:border-champagne hover:text-champagne-bright"
+            href="#novedades"
+            className="inline-flex items-center gap-2 border border-ivory px-7 py-3.5 font-sans text-xs tracking-label uppercase text-ink bg-ivory transition-colors duration-300 hover:bg-champagne-bright hover:border-champagne-bright"
           >
-            Descubrir Meghan
+            Explorar colección
           </a>
-          <WhatsAppButton message={WA_MESSAGES.general}>Consultar por WhatsApp</WhatsAppButton>
+          <a
+            href="#perfumeria"
+            className="inline-flex items-center gap-2 border border-ivory/40 px-7 py-3.5 font-sans text-xs tracking-label uppercase text-ivory transition-colors duration-300 hover:border-champagne hover:text-champagne-bright"
+          >
+            Ver perfumería
+          </a>
         </motion.div>
       </div>
     </section>

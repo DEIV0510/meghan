@@ -1,81 +1,78 @@
 import { CATEGORIES } from '../data/brand'
-import { CAMPAIGN } from '../data/products'
+import { APPAREL, CAMPAIGN } from '../data/products'
 import { CLIPS } from '../data/media'
+import { useUI } from '../lib/UIContext'
 import { Reveal } from './Reveal'
 import { ChapterMark } from './ui/ChapterMark'
 import { LazyVideo } from './ui/LazyVideo'
 import { Marquee } from './ui/Marquee'
+import { ProductCard } from './ProductCard'
 
 const CATEGORY = CATEGORIES[1]
-const [FEATURE, ...REST] = CAMPAIGN.filter((c) => c.hero)
-const MASONRY = REST
+const [FEATURE, ...SECONDARY] = CAMPAIGN.filter((c) => c.hero).slice(0, 5)
+const SHOP_ROW = APPAREL.slice(0, 10)
 
 export function ModaEditorial() {
+  const { openProduct } = useUI()
+
   return (
-    <section id="moda" className="relative overflow-hidden bg-ink py-24 sm:py-32">
+    <section id="moda" className="relative overflow-hidden bg-ivory py-24 sm:py-32">
       <div className="mx-auto max-w-[92rem] px-5 sm:px-8">
-        <ChapterMark number={CATEGORY.number} kicker={CATEGORY.kicker} title={CATEGORY.title} />
-        <Reveal delay={0.15} className="mt-6 max-w-xl text-sm text-ivory-dim sm:text-base">
+        <ChapterMark number={CATEGORY.number} kicker={CATEGORY.kicker} title={CATEGORY.title} tone="dark" />
+        <Reveal delay={0.15} className="mt-6 max-w-xl text-sm text-stone sm:text-base">
           {CATEGORY.description}
         </Reveal>
 
-        {/* Feature strip — asymmetric, photo + living video side by side */}
+        {/* Lookbook composition — one large image + a few secondary frames, not a grid */}
         <div className="mt-14 grid grid-cols-1 gap-4 sm:mt-20 sm:grid-cols-5 sm:gap-5">
           <Reveal className="sm:col-span-3">
-            <div className="relative h-[46vh] overflow-hidden rounded-sm sm:h-[68vh]">
-              <img
-                src={FEATURE.image}
-                alt="Campaña Vie-Riche"
-                loading="lazy"
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
-              <span className="absolute bottom-4 left-4 text-[10px] tracking-label uppercase text-ivory/80">
+            <div className="relative h-[46vh] overflow-hidden sm:h-[68vh]">
+              <img src={FEATURE.image} alt="Campaña Vie-Riche" loading="lazy" className="h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
+              <span className="absolute bottom-4 left-4 text-[10px] tracking-label uppercase text-ivory/90">
                 Vie-Riche · Campaña
               </span>
             </div>
           </Reveal>
-          <Reveal delay={0.12} className="sm:col-span-2">
-            <div className="relative h-[32vh] overflow-hidden rounded-sm sm:h-[68vh]">
-              <LazyVideo clip={CLIPS.modaGraffitiWalk} className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
-            </div>
-          </Reveal>
+          <div className="grid grid-cols-2 gap-4 sm:col-span-2 sm:grid-cols-1 sm:gap-5">
+            {SECONDARY.slice(0, 2).map((plate, i) => (
+              <Reveal key={plate.id} delay={0.1 + i * 0.08}>
+                <div className="relative h-[22vh] overflow-hidden sm:h-[32vh]">
+                  <img src={plate.image} alt="Campaña Vie-Riche" loading="lazy" className="h-full w-full object-cover" />
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
 
-        {/* Editorial masonry — orientation-driven, not a uniform grid */}
-        <div className="mt-5 columns-2 gap-4 sm:mt-6 sm:columns-3 sm:gap-5 lg:columns-4">
-          {MASONRY.map((plate, i) => (
-            <Reveal key={plate.id} delay={(i % 4) * 0.05} className="mb-4 break-inside-avoid sm:mb-5">
-              <div className="group relative overflow-hidden rounded-sm">
-                <img
-                  src={plate.image}
-                  alt="Campaña Vie-Riche"
-                  loading="lazy"
-                  className="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              </div>
+        <Reveal className="mt-5 sm:mt-6">
+          <div className="relative h-[30vh] overflow-hidden sm:h-[38vh]">
+            <LazyVideo clip={CLIPS.modaGraffitiWalk} className="h-full w-full object-cover" />
+          </div>
+        </Reveal>
+
+        {/* Shoppable row */}
+        <div className="mt-16 flex items-end justify-between">
+          <p className="text-[11px] tracking-label uppercase text-champagne-deep">La colección</p>
+        </div>
+        <div className="mt-6 flex gap-5 overflow-x-auto pb-4">
+          {SHOP_ROW.map((p, i) => (
+            <Reveal key={p.id} delay={Math.min(i * 0.04, 0.3)} className="w-44 shrink-0 sm:w-56">
+              <ProductCard product={p} onOpen={openProduct} />
             </Reveal>
           ))}
-
-          <Reveal className="mb-4 break-inside-avoid sm:mb-5">
-            <div className="relative overflow-hidden rounded-sm">
-              <LazyVideo clip={CLIPS.modaStoneSit} className="w-full object-cover" />
-            </div>
-          </Reveal>
         </div>
 
-        <div className="mt-14 flex flex-col items-start justify-between gap-8 border-t border-champagne-dim/15 pt-10 sm:flex-row sm:items-end">
+        <div className="mt-14 flex flex-col items-start justify-between gap-8 border-t border-stone/15 pt-10 sm:flex-row sm:items-end">
           <div>
-            <p className="text-[11px] tracking-label uppercase text-champagne">Casas representadas</p>
+            <p className="text-[11px] tracking-label uppercase text-champagne-deep">Casas representadas</p>
             <div className="mt-3 max-w-md">
-              <Marquee items={CATEGORY.brands} className="text-sm tracking-label uppercase text-ivory-dim/70" speed="slow" />
+              <Marquee items={CATEGORY.brands} className="text-sm tracking-label uppercase text-stone" speed="slow" />
             </div>
           </div>
           <a
             href="#archivo"
-            className="inline-flex shrink-0 items-center gap-2 rounded-full border border-champagne/50 px-7 py-3.5 font-sans text-xs tracking-label uppercase text-ivory transition-colors duration-300 hover:border-champagne hover:bg-champagne/10"
+            className="inline-flex shrink-0 items-center gap-2 border border-ink px-7 py-3.5 font-sans text-xs tracking-label uppercase text-ink transition-colors duration-300 hover:bg-ink hover:text-ivory"
           >
             Explorar Moda
           </a>

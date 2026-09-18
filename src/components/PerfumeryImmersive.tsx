@@ -8,11 +8,13 @@ import montaleSensual from '../assets/perfume/montale-sensual-instinct.webp'
 import { CATEGORIES, WA_MESSAGES } from '../data/brand'
 import { PERFUMES } from '../data/products'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+import { useUI } from '../lib/UIContext'
 import { loadGsap, type GsapContext } from '../lib/gsapLoader'
 import { Reveal } from './Reveal'
 import { GoldStar } from './ui/GoldStar'
 import { Marquee } from './ui/Marquee'
 import { WhatsAppButton } from './ui/WhatsAppButton'
+import { ProductCard } from './ProductCard'
 
 const CATEGORY = CATEGORIES[0]
 
@@ -24,11 +26,21 @@ const SATELLITES = [
   { src: creedSilver, alt: 'Creed Silver Mountain Water', pos: 'right-[2%] top-[42%] hidden lg:block' },
 ]
 
-const GALLERY_ROW = PERFUMES.filter((p) =>
-  ['bond-tribeca', 'le-labo-another', 'valentino-roma', 'ch-black', 'zakat-red', 'lattafa-yara', 'fugazzi-sugar-daddy'].includes(p.id),
+const SHOP_ROW = PERFUMES.filter((p) =>
+  [
+    'creed-aventus',
+    'le-labo-santal',
+    'bond-tribeca',
+    'zakat-red',
+    'valentino-roma',
+    'ch-black',
+    'blackoud-opulent',
+    'lattafa-yara',
+  ].includes(p.id),
 )
 
 export function PerfumeryImmersive() {
+  const { openProduct } = useUI()
   const wrapRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
   const bottleRef = useRef<HTMLImageElement>(null)
@@ -157,30 +169,33 @@ export function PerfumeryImmersive() {
     <div id="perfumeria" ref={wrapRef} className="relative bg-ink">
       {stage}
 
-      {/* Second beat — an offset row of real references, not a grid */}
-      <section className="relative overflow-hidden bg-ink py-20 sm:py-28">
-        <Reveal className="mx-auto mb-10 max-w-2xl px-5 text-center">
-          <p className="text-[11px] tracking-label uppercase text-champagne">Algunas referencias</p>
-          <p className="mt-2 text-sm text-ivory-dim">Una muestra de la curaduría disponible en el showroom.</p>
-        </Reveal>
-
-        <div className="flex gap-5 overflow-x-auto px-5 pb-4 sm:justify-center sm:overflow-visible sm:px-10">
-          {GALLERY_ROW.map((p, i) => (
-            <Reveal
-              key={p.id}
-              delay={i * 0.06}
-              className={`w-36 shrink-0 sm:w-44 ${i % 2 === 1 ? 'sm:mt-8' : ''}`}
+      {/* Second beat — light, commercial: the shop grid */}
+      <section className="relative overflow-hidden bg-snow py-20 sm:py-28">
+        <div className="mx-auto max-w-[92rem] px-5 sm:px-8">
+          <Reveal className="flex flex-col items-start gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-[11px] tracking-label uppercase text-champagne-deep">The Scent Edit</p>
+              <h3 className="mt-2 font-serif text-3xl text-charcoal sm:text-4xl">El arte de elegir una esencia.</h3>
+            </div>
+            <a
+              href="#archivo"
+              className="text-[11px] tracking-label uppercase text-charcoal underline underline-offset-4 hover:text-champagne-deep"
             >
-              <div className="aspect-[3/4] overflow-hidden rounded-sm border border-champagne-dim/15 bg-graphite">
-                <img src={p.image} alt={p.name} loading="lazy" className="h-full w-full object-contain p-4" />
-              </div>
-              <p className="mt-2 text-[11px] text-ivory-dim">{p.name}</p>
-            </Reveal>
-          ))}
-        </div>
+              Ver toda la perfumería
+            </a>
+          </Reveal>
 
-        <div className="mt-14 border-y border-champagne-dim/10 py-4">
-          <Marquee items={CATEGORY.brands} className="text-sm tracking-label uppercase text-ivory-dim/70" />
+          <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4">
+            {SHOP_ROW.map((p, i) => (
+              <Reveal key={p.id} delay={Math.min(i * 0.05, 0.3)}>
+                <ProductCard product={p} onOpen={openProduct} />
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="mt-14 border-y border-stone/15 py-4">
+            <Marquee items={CATEGORY.brands} className="text-sm tracking-label uppercase text-stone" />
+          </div>
         </div>
       </section>
 
